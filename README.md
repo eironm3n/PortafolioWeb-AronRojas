@@ -1,124 +1,18 @@
-### drive a Materiales Portafolio
-link: https://drive.google.com/drive/folders/10KYpe4U_B_FH5CO6mYGK-P1F1iJg_8is?usp=sharing
+# 💫 About Me:
+🤓 I'm currently working on my portfolio<br><br>🚀 I'm looking to collaborate on a project to help to my social environment.<br><br>💻 I'm currently learning Java, JS, Python, Mathematics and HTML/CSS.
 
-# .
-Este template muestra la forma de desplegar con Vue 3 en Vite.
 
-This template should help get you started developing with Vue 3 in Vite.
+## 🌐 Socials:
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-%230077B5.svg?logo=linkedin&logoColor=white)](https://linkedin.com/in/https://www.linkedin.com/in/aron-rojas/) 
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
-# Introducción
-
-## ¿Por qué Crear un Portafolio?
-Un portafolio es una herramienta esencial para cualquier programador. No solo muestra tus habilidades y proyectos de una manera organizada y visualmente atractiva, sino que también puede ser la clave para conseguir entrevistas y trabajos en el campo de la tecnología. Al final de esta serie de tutoriales, tendrás un enfoque de un portafolio totalmente funcional y personalizable, listo para impresionar a futuros empleadores y clientes.
-
-## ¿Qué Vamos a Construir?
-Nuestro portafolio estará compuesto por varias secciones clave que te permitirán mostrar toda tu información profesional de manera clara y estructurada. Estas secciones incluyen:
-
-- **Barra de Navegación:** Para facilitar la navegación entre las diferentes secciones de tu portafolio.
-- **Datos Personales:** Nombre y apellido, dirección, teléfono y código postal.
-- **Educación:** Detalles sobre tu formación académica.
-- **Experiencia:** Información sobre tus trabajos y proyectos anteriores.
-- **Organización, Liderazgo y Actividades:** Involucramiento en actividades extracurriculares y roles de liderazgo.
-- **Habilidades e Intereses:** Una lista de tus habilidades técnicas y tus intereses personales.
-
-## ¿Qué Necesitas para Empezar?
-Para seguir este tutorial, necesitarás tener algunas herramientas básicas instaladas en tu computadora:
-
-- **Node.js y npm:** Para gestionar las dependencias de Vue.js.
-- **Un Editor de Código:** Como Visual Studio Code o cualquier otro de tu preferencia.
-
-Conectamos con cdn de Vue.js de ejemplo práctico.
+# 💻 Tech Stack:
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![Shell Script](https://img.shields.io/badge/shell_script-%23121011.svg?style=for-the-badge&logo=gnu-bash&logoColor=white) ![Windows Terminal](https://img.shields.io/badge/Windows%20Terminal-%234D4D4D.svg?style=for-the-badge&logo=windows-terminal&logoColor=white) ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=for-the-badge&logo=powershell&logoColor=white) ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=microsoftazure&logoColor=white) ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white) ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=for-the-badge&logo=google-cloud&logoColor=white) ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white) ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white) ![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white) ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white) ![Jira](https://img.shields.io/badge/jira-%230A0FFF.svg?style=for-the-badge&logo=jira&logoColor=white) ![Trello](https://img.shields.io/badge/Trello-%23026AA7.svg?style=for-the-badge&logo=Trello&logoColor=white)
+# 📊 GitHub Stats:
+![](https://github-readme-stats.vercel.app/api?username=eironm3n&theme=dark&hide_border=false&include_all_commits=false&count_private=false)<br/>
+![](https://github-readme-streak-stats.herokuapp.com/?user=eironm3n&theme=dark&hide_border=false)<br/>
+![](https://github-readme-stats.vercel.app/api/top-langs/?username=eironm3n&theme=dark&hide_border=false&include_all_commits=false&count_private=false&layout=compact)
 
 ---
+[![](https://visitcount.itsvg.in/api?id=eironm3n&icon=0&color=0)](https://visitcount.itsvg.in)
 
-# Capítulo 1: Configuración del Entorno y Estructura del Proyecto
-
-### ¡Bienvenidos al Capítulo 1!
-En este primer capítulo, vamos a preparar todo lo necesario para empezar a desarrollar nuestro portafolio con Vue.js. Esto incluye la instalación de las herramientas necesarias y la creación de la estructura básica de nuestro proyecto.
-
-## Paso 1: Instalación de Node.js y npm
-Para empezar, necesitamos tener Node.js y npm instalados en nuestra computadora. Node.js nos permitirá ejecutar JavaScript en el servidor, y npm es el gestor de paquetes que usaremos para instalar Vue.js y otras dependencias.
-
-## Paso 2: Creación de un Nuevo Proyecto Vue.js
-
-## Paso 3: Estructura Básica del Proyecto
-Vamos a revisar la estructura básica del proyecto para entender cómo está organizado.
-
----
-# Capítulo 2: Configuración del Entorno y Estructura del Proyecto
-
-### !Bienvenidos al Capítulo 2!
-En este segundo capítulo, vamos a preparar la estructura de archivos que realizamos en la clase anterior, quitando algunos archivos y seleccionando lo que nos pueda servir para la construcción del Portafolio web con Vue, además explicaremos y veremos un ejemplo práctico como funciona vue 
-
----
-# Capítulo 3: Portafolio Vuejs, creando una Barra de Navegación.
-
-### !Bienvenidos al Capítulo 3!
-En este tercer capítulo, vamos a repasar lo visto en el capítulo anterior y comenzaremos a crear una barra de navegación simple para que el usuario pueda acceder rápidamente al contenido, de nuestro portafolio, en este pdf les dejare lo realizado en este capítulo para que lo repasen y lo apliquen a su proyecto.
-
----
-# Capítulo 4: Portafolio Vuejs, creando componente Datos Personales.
-
-### !Bienvenidos al Capítulo 4!
-En este cuarto capítulo, vamos a repasar lo visto en el capítulo 3, mostrando una nueva herramienta Vue SFC Playground, explicaremos como funciona un v-for y crearemos el componente Datos Personales para agregar a nuestra pagina principal que se encuentra en App.vue.
-Les dejo en el PDF lo realizado en clases y con los links de descarga de los materiales aplicados en este portafolio web.
-No se olviden de repasar los videos o la documentación oficial de Vuejs.
-
----
-# Capítulo 5: Portafolio Vuejs, creando componente Estudios - Cursos usando un time line.
-
-### !Bienvenidos al Capítulo 5!
-En este quinto capítulo, vamos a repasar lo visto en el capítulo 4, y crearemos el componente de Estudios y Cursos, utilizando una Time Line, que nos servira para colocar en orden cronológico las fechas de realización y finalización de los estudios.
-Esta vez yo utilizare el codigo proporcionado por otro programador y les doy pase libre para que ustedes busquen un modelo cronológico en linea o pueden crearlo con chat-gpt o cualquier ia, y la idea es que luego lo apliquen a su portafolio y comenten el codigo de lo realizado.
-Dejare en el PDF lo realizado en clases y con los links de descarga de los materiales aplicados en este portafolio web.
-No se olviden de repasar los videos o la documentación oficial de Vuejs.
-
----
-# Capítulo 6: Portafolio Vuejs, creando componente Experiencia - Cursos usando un time line.
-
-### !Bienvenidos al Capítulo 6!
-En este capítulo, comenzare a crear el componente Experiencia de nuestro portafolio web, el cual deberemos colocar dentro de la section Experiencia.
-Para realizar la section Experiencia, podemos tomar de referencia lo visto en las muestras de los 25 portafolios que deje en clases, yo realizare algo simple guiándome con mi borrador del CV de Juan Perez.
-Solucionaremos problemas en la barra de navegación para dirijirnos a las diferentes secciones del portafolio realizado con este maravilloso Framework Vuejs.
-
-# Capítulo 7: Portafolio Vuejs, creando componente Proyectos - Cursos usando un time line.
-
-### !Bienvenidos al Capítulo 7!
-En este capítulo, veremos cómo construir una galería para mostrar nuestros proyectos. Esta es una parte fundamental de nuestro portafolio, ya que la forma en que presentamos nuestros trabajos puede ser clave para atraer a futuros empleadores.
-Quizás esta es la parte más importante del portafolio ya que como diseñemos y mostremos nuestros proyectos, eso nos puede abrir el camino a nuestro próximo trabajo.
-Para esta sección es muy importante conseguir un buen impacto visual, una buena accesibilidad a cada proyecto, ya sea mostrando como funciona el proyecto o mostrando el código en github. 
-Para ampliar nuestra creatividad podemos utilizar los portafolios que deje de ejemplo en la clase anterior de referencia, y deberemos ver como muestran los proyectos y allí capturar una idea para volcarlo a nuestro portafolio web.
-
-
+<!-- Proudly created with GPRM ( https://gprm.itsvg.in ) -->
