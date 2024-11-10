@@ -10,7 +10,6 @@ const residencia = 'Guaymallén, Mendoza, Argentina';
 const presentacion = 'Hola, Bienvenido a mi portafolio de proyectos. Soy un desarrollador web con experiencia en el desarrollo de aplicaciones web y móviles.';
 const redesSociales = [
   { id: 1, name: 'linkedin', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/' },
-  /*{ id: 2, name: 'Instagram', src: instagram, url: 'https://www.instagram.com/universidaddelta/?hl=es-la' },*/
   { id: 3, name: 'github', src: github, url: 'https://github.com/eironm3n' },
   { id: 4, name: 'curriculum', src: cv, url: 'https://drive.google.com/file/d/1lIuMuRHC1oxaueg1otMzKcywQDCc5Cui/view?usp=drive_link' },
 ];
@@ -46,7 +45,7 @@ p {
 }
 
 .card {
-  background-color: rgb(28, 41, 52);
+  background-color: rgb(16, 40, 92);
   border-radius: 10px;
   padding: 10px;
   margin: 10px;
