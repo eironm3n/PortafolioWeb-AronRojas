@@ -7,7 +7,7 @@ import cv from '/src/assets/cv_resume_icon.svg';
 const title = 'Arón Rojas';
 const descripcion = 'Técnico Universitario en Programación - UTN';
 const residencia = 'Guaymallén, Mendoza, Argentina';
-const presentacion = 'Hola, Bienvenido a mi portafolio de proyectos. Soy un desarrollador web con experiencia en el desarrollo de aplicaciones web y móviles.';
+const presentacion = 'Hola, Bienvenido a mi portafolio de proyectos. Soy un desarrollador de software con conocimientos en el desarrollo de aplicaciones web y de computadoras.';
 const redesSociales = [
   { id: 1, name: 'linkedin', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/' },
   { id: 3, name: 'github', src: github, url: 'https://github.com/eironm3n' },
