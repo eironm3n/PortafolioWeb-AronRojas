@@ -2,7 +2,6 @@
 import linkedin from '/src/assets/linkedin_icon.svg';
 /*import instagram from '/src/assets/instagram_icon.svg';*/
 import github from '/src/assets/github_icon.svg';
-import cv from '/src/assets/cv_resume_icon.svg';
 
 const title = 'Arón Rojas';
 const descripcion = 'Técnico Universitario en Programación - UTN';
@@ -11,9 +10,7 @@ const presentacion = 'Hola, Bienvenido a mi portafolio de proyectos. Soy un desa
 const redesSociales = [
   { id: 1, name: 'linkedin', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/' },
   { id: 3, name: 'github', src: github, url: 'https://github.com/eironm3n' },
-  { id: 4, name: 'curriculum', src: cv, url: 'https://drive.google.com/file/d/1lIuMuRHC1oxaueg1otMzKcywQDCc5Cui/view?usp=drive_link' },
 ];
-const telefono = '+54 9 2615-595969';
 </script>
 
 <template>
@@ -27,7 +24,6 @@ const telefono = '+54 9 2615-595969';
           <a :href="red.url"><img class="icon-redsocial" :src="red.src" width="35rem" :alt="red.name"></a>
         </li>
       </ul>
-      <h3>☎ Mi Teléfono personal: {{ telefono }}</h3>
       <h4>{{ residencia }}</h4>
     </div>
   </section>
