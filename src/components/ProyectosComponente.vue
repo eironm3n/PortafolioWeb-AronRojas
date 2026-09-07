@@ -5,11 +5,11 @@ import imgPowerBi from '/src/assets/proyectos/powerbi-videojuegos.png';
 const misProyectos = ref([
   {
     id: 1,
-    titulo: 'Proyecto Integrador — E-commerce (2025)',
-    descripcion: 'Aplicación de comercio electrónico desarrollada como proyecto integrador de la Tecnicatura, trabajando el flujo completo: catálogo, carrito y gestión de productos.',
-    stack: 'JavaScript · HTML/CSS',
+    titulo: 'Estacionamiento — API REST con Flask (2025)',
+    descripcion: 'Proyecto integrador colaborativo (equipo Código Enigma, UTN FRSR): sistema web para gestionar el cobro de estacionamiento por tiempo de permanencia. API REST en Flask con arquitectura en capas (controllers / models / repositories / services), persistencia con TinyDB, documentación con Swagger UI y frontend responsive.',
+    stack: 'Python · Flask · TinyDB · Swagger',
     projectoLink: '',
-    githubLink: 'https://github.com/eironm3n/proyecto_integrador_e-commerce',
+    githubLink: 'https://github.com/PowerSystem2024/CodigoEnigma-ProyectoIntegradorPython',
     estado: 'publicado',
   },
   {
