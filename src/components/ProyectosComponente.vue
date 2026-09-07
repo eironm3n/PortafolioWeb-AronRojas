@@ -52,8 +52,8 @@ const misProyectos = ref([
   {
     id: 6,
     titulo: 'shortlink-service — DevOps end-to-end (2026)',
-    descripcion: 'Servicio en FastAPI usado como pieza de portafolio DevOps: contenedor multi-stage no-root, pipeline de CI/CD en GitHub Actions (ruff, mypy, pytest con 95% de cobertura, build, escaneo Trivy, smoke test y publicación en GHCR) e infraestructura como código con Terraform para AWS Lightsail.',
-    stack: 'Python · FastAPI · Docker · GitHub Actions · Trivy · Terraform · AWS',
+    descripcion: 'Servicio en FastAPI usado como pieza de portafolio DevOps: contenedor multi-stage no-root, pipeline de CI/CD en GitHub Actions (ruff, mypy, pytest con 95% de cobertura, build, escaneo Trivy, smoke test y publicación en GHCR), observabilidad con Prometheus + Grafana (dashboard aprovisionado) e infraestructura como código con Terraform para AWS Lightsail.',
+    stack: 'Python · FastAPI · Docker · GitHub Actions · Trivy · Prometheus · Grafana · Terraform · AWS',
     projectoLink: 'https://github.com/eironm3n/shortlink-service/actions',
     githubLink: 'https://github.com/eironm3n/shortlink-service',
     estado: 'publicado',
