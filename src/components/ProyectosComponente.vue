@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue';
+import imgPowerBi from '/src/assets/proyectos/powerbi-videojuegos.png';
 
 const misProyectos = ref([
   {
@@ -22,11 +23,12 @@ const misProyectos = ref([
   },
   {
     id: 3,
-    titulo: 'Prácticas y proyectos con Power BI (2025)',
-    descripcion: 'Repositorio con ejercicios y tableros de Power BI: modelado de datos, medidas DAX y visualizaciones para análisis y reporting.',
-    stack: 'Power BI · DAX',
+    titulo: 'Dashboard end-to-end — Histórico de Videojuegos (2025)',
+    descripcion: 'Proyecto de datos completo: ETL y limpieza con Power Query, modelado en esquema estrella, métricas y KPIs con DAX, y un dashboard interactivo sobre ventas por género, plataforma, región y editor.',
+    stack: 'Power BI · Power Query · DAX',
+    imagen: imgPowerBi,
     projectoLink: '',
-    githubLink: 'https://github.com/eironm3n/Proyectos-Power-Bi',
+    githubLink: 'https://github.com/eironm3n/Proyectos-Power-Bi/tree/main/Hist%C3%B3rico_videojuegos',
     estado: 'publicado',
   },
   {
@@ -71,7 +73,8 @@ const misProyectos = ref([
 <template>
   <div class="galeria">
     <li class="proyecto" v-for="proyecto in misProyectos" :key="proyecto.id">
-      <div class="proyecto-sinimg">{{ proyecto.stack }}</div>
+      <img v-if="proyecto.imagen" :src="proyecto.imagen" :alt="`Captura del proyecto ${proyecto.titulo}`">
+      <div v-else class="proyecto-sinimg">{{ proyecto.stack }}</div>
       <div class="proyecto-info">
         <span class="badge" :class="proyecto.estado === 'publicado' ? 'badge-ok' : 'badge-wip'">
           {{ proyecto.estado }}
