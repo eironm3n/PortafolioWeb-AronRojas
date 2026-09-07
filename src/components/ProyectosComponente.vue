@@ -14,15 +14,6 @@ const misProyectos = ref([
   },
   {
     id: 2,
-    titulo: 'Proyecto Final — Python (2025)',
-    descripcion: 'Proyecto final de programación en Python: resolución de un problema aplicado con foco en estructura de código, funciones y manejo de datos.',
-    stack: 'Python',
-    projectoLink: '',
-    githubLink: 'https://github.com/eironm3n/ProyectoFinal',
-    estado: 'publicado',
-  },
-  {
-    id: 3,
     titulo: 'Dashboard end-to-end — Histórico de Videojuegos (2025)',
     descripcion: 'Proyecto de datos completo: ETL y limpieza con Power Query, modelado en esquema estrella, métricas y KPIs con DAX, y un dashboard interactivo sobre ventas por género, plataforma, región y editor.',
     stack: 'Power BI · Power Query · DAX',
@@ -32,16 +23,7 @@ const misProyectos = ref([
     estado: 'publicado',
   },
   {
-    id: 4,
-    titulo: 'Código Enigma — Ruleta en Java (2024)',
-    descripcion: 'Proyecto integrador en equipo: simulación de una ruleta de casino en Java partiendo de un algoritmo diseñado en PSeInt, con apuestas a número y color y generación aleatoria del resultado.',
-    stack: 'Java · trabajo en equipo',
-    projectoLink: '',
-    githubLink: 'https://github.com/PowerSystem2024/CodigoEnigma-ProyectoIntegradorJava',
-    estado: 'publicado',
-  },
-  {
-    id: 5,
+    id: 3,
     titulo: 'Este portafolio (2024 – 2026)',
     descripcion: 'Portafolio en Vue 3 + Vite desplegado en Vercel. Mantenido al día: actualización a Vite 8, migración a ESLint 10 (flat config) y saneamiento de dependencias (0 vulnerabilidades).',
     stack: 'Vue 3 · Vite · Vercel',
@@ -50,7 +32,7 @@ const misProyectos = ref([
     estado: 'publicado',
   },
   {
-    id: 6,
+    id: 4,
     titulo: 'Infraestructura como código — Terraform + AWS',
     descripcion: 'Aprovisionamiento reproducible de una VPC con instancias EC2 y almacenamiento en AWS mediante Terraform, con módulos reutilizables y estado remoto.',
     stack: 'Terraform · AWS',
@@ -59,7 +41,7 @@ const misProyectos = ref([
     estado: 'en construcción',
   },
   {
-    id: 7,
+    id: 5,
     titulo: 'Pipeline CI/CD con contenedores',
     descripcion: 'Build, test y despliegue automatizados de una aplicación contenedorizada con GitHub Actions y Docker.',
     stack: 'Docker · GitHub Actions',
