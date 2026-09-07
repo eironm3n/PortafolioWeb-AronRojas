@@ -11,22 +11,29 @@ import iconPostgres from '/src/components/icons/postgres.svg';
 import iconMysql from '/src/components/icons/mysql.svg';
 import iconArg from '/src/components/icons/arg.svg';
 import iconUsa from '/src/components/icons/eeuu.svg';
+import iconAws from '/src/components/icons/aws.svg';
+import iconAzure from '/src/components/icons/azure.svg';
+import iconGcp from '/src/components/icons/gcp.svg';
+import iconLinux from '/src/components/icons/linux.svg';
+import iconK8s from '/src/components/icons/kubernetes.svg';
+import iconTerraform from '/src/components/icons/terraform.svg';
+import iconBash from '/src/components/icons/bash.svg';
+import iconN8n from '/src/components/icons/n8n.svg';
+import iconPowershell from '/src/components/icons/powershell.svg';
 
 import { ref } from 'vue';
 
-// [PENDIENTE] iconos propios para: AWS, Azure, GCP, Linux, Kubernetes,
-// Terraform, Bash, n8n. Por ahora esas skills se muestran solo con texto.
 const habilidades = ref([
   {
     id: 1, nombre: 'Cloud', habilidades: [
-      { id: 1, nombre: 'AWS (EC2, GPU, IAM)', nivel: 'Práctico', icono: null },
-      { id: 2, nombre: 'Microsoft Azure', nivel: 'Certificado AZ-900', icono: null },
-      { id: 3, nombre: 'Google Cloud Platform', nivel: 'Certificado (fundamentos + GKE)', icono: null },
+      { id: 1, nombre: 'AWS (EC2, GPU, IAM)', nivel: 'Práctico', icono: iconAws },
+      { id: 2, nombre: 'Microsoft Azure', nivel: 'Certificado AZ-900', icono: iconAzure },
+      { id: 3, nombre: 'Google Cloud Platform', nivel: 'Certificado (fundamentos + GKE)', icono: iconGcp },
     ],
   },
   {
     id: 2, nombre: 'Infraestructura y Sistemas', habilidades: [
-      { id: 1, nombre: 'Linux (Red Hat, Debian, Arch)', nivel: 'Avanzado', icono: null },
+      { id: 1, nombre: 'Linux (Red Hat, Debian, Arch)', nivel: 'Avanzado', icono: iconLinux },
       { id: 2, nombre: 'Windows Server', nivel: 'Intermedio', icono: null },
       { id: 3, nombre: 'Administración de sistemas', nivel: 'Avanzado', icono: null },
       { id: 4, nombre: 'RDP / VNC / Citrix', nivel: 'Uso profesional', icono: null },
@@ -35,17 +42,17 @@ const habilidades = ref([
   {
     id: 3, nombre: 'Contenedores y Automatización', habilidades: [
       { id: 1, nombre: 'Docker', nivel: 'Intermedio', icono: iconDocker },
-      { id: 2, nombre: 'Kubernetes', nivel: 'Fundamentos', icono: null },
-      { id: 3, nombre: 'Bash scripting', nivel: 'Avanzado', icono: null },
-      { id: 4, nombre: 'PowerShell', nivel: 'Intermedio', icono: null },
-      { id: 5, nombre: 'n8n', nivel: 'Intermedio', icono: null },
+      { id: 2, nombre: 'Kubernetes', nivel: 'Fundamentos', icono: iconK8s },
+      { id: 3, nombre: 'Bash scripting', nivel: 'Avanzado', icono: iconBash },
+      { id: 4, nombre: 'PowerShell', nivel: 'Intermedio', icono: iconPowershell },
+      { id: 5, nombre: 'n8n', nivel: 'Intermedio', icono: iconN8n },
     ],
   },
   {
     id: 4, nombre: 'IaC, CI/CD y Control de versiones', habilidades: [
       { id: 1, nombre: 'Git', nivel: 'Intermedio', icono: iconGit },
       { id: 2, nombre: 'GitHub Actions', nivel: 'En formación', icono: null },
-      { id: 3, nombre: 'Terraform', nivel: 'En formación', icono: null },
+      { id: 3, nombre: 'Terraform', nivel: 'En formación', icono: iconTerraform },
     ],
   },
   {

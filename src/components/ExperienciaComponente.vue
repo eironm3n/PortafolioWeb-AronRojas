@@ -1,18 +1,17 @@
 <script setup>
 import { ref } from 'vue';
 
-// NOTA (NDA): se nombra a ReMASA como empleadora. El cliente final y los
-// proyectos se describen por sector, sin datos sensibles. Si más adelante
-// se confirma que se pueden nombrar las empresas cliente, ajustar aquí.
+// NOTA (NDA): se pueden nombrar ReMASA (empleadora), YPF y PeCOM (clientes).
+// No se incluyen datos de proyectos ni información sensible.
 const experiencias = ref([
   {
     id: 1,
     puesto: 'Analista de Soporte de Aplicaciones L2',
-    empresa: 'ReMASA — asignado a operadora del sector energético',
+    empresa: 'PeCOM — E&D HelpDesk (vía ReMASA)',
     periodo: 'Sep 2024 – Actualidad · Remoto',
     logros: [
-      'Administración de infraestructura cloud en AWS (instancias EC2 con GPU, Linux y Windows) para plataformas de simulación de reservorios y cómputo intensivo.',
-      'Automatización de correcciones de datos y tareas operativas recurrentes con Python y Bash (apoyada con IA), reduciendo trabajo manual en procesos de saneamiento de datos.',
+      'Administración de infraestructura cloud en AWS (instancias EC2 con GPU, Linux y Windows) para plataformas de simulación de reservorios y cómputo intensivo (Petrel, tNavigator, CMG, Sahara, QGIS).',
+      'Automatización de correcciones de datos de pozos y tareas operativas recurrentes con Python y Bash (apoyada con IA), reduciendo trabajo manual en procesos de saneamiento de datos.',
       'Homologación e incorporación de nuevas aplicaciones: documentación técnica, gestión del cambio y coordinación con las áreas de Ciberseguridad y Networking según políticas corporativas.',
       'Administración y capacitación de Microsoft 365 / OneDrive para usuarios internos; gestión de credenciales y altas.',
       'Mejora continua del servicio de licencias y aplicaciones: diagnóstico de causa raíz y reducción de demoras en el uso de plataformas especializadas. [PENDIENTE: métricas antes/después]',
@@ -22,7 +21,7 @@ const experiencias = ref([
   {
     id: 2,
     puesto: 'Soporte de Aplicaciones L1 · Trainee → Junior',
-    empresa: 'ReMASA — Proyecto CSG, cliente del sector oil & gas',
+    empresa: 'YPF — CSG, Centro de Soluciones de Geociencia (vía ReMASA)',
     periodo: 'Nov 2021 – Sep 2024 · Remoto (LATAM y Europa)',
     logros: [
       'Soporte a clientes internos (geólogos, ingenieros de reservorios, exploración y analistas) sobre aplicaciones geocientíficas en Windows y Linux, con SLA definidos y gestión vía ServiceNow y Redmine.',

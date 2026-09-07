@@ -1,25 +1,25 @@
 <script setup>
 import { ref } from 'vue';
 
-const REPO_PDFS = 'https://github.com/eironm3n/strong_skills/tree/main/pdfs';
-
+// Los PDFs se sirven desde public/certificados/. Los que tienen verificación
+// online (Coursera, Credly, Atlassian, Desafío Latam) enlazan a la fuente.
 const grupos = ref([
   {
     id: 1,
     nombre: 'Cloud e Infraestructura',
     items: [
-      { id: 1, nombre: 'Microsoft Azure Fundamentals (AZ-900)', emisor: 'EducacionIT · examen oficial Microsoft', anio: '2023', link: REPO_PDFS },
+      { id: 1, nombre: 'Microsoft Azure Fundamentals (AZ-900)', emisor: 'EducacionIT · examen oficial Microsoft', anio: '2023', link: '/certificados/azure-fundamentals-az900-educacionit.pdf' },
       { id: 2, nombre: 'Google Cloud Fundamentals: Core Infrastructure', emisor: 'Coursera / Google Cloud', anio: '2021', link: 'https://www.coursera.org/account/accomplishments/verify/4SJ6HG7YFGNJ' },
       { id: 3, nombre: 'Essential Cloud Infrastructure: Foundation', emisor: 'Coursera / Google Cloud', anio: '2022', link: 'https://www.coursera.org/account/accomplishments/verify/FGNQY3JGUD2R' },
       { id: 4, nombre: 'Essential Cloud Infrastructure: Core Services', emisor: 'Coursera / Google Cloud', anio: '2022', link: 'https://www.coursera.org/account/accomplishments/verify/2ALJ6AARKCA8' },
-      { id: 5, nombre: 'Linux Administrador', emisor: 'EducacionIT', anio: '2022', link: REPO_PDFS },
+      { id: 5, nombre: 'Linux Administrador', emisor: 'EducacionIT', anio: '2022', link: '/certificados/linux-administrador-educacionit.pdf' },
     ],
   },
   {
     id: 2,
     nombre: 'Contenedores y Orquestación',
     items: [
-      { id: 1, nombre: 'Docker and Kubernetes Fundamentals', emisor: 'Kubernetes Academy Online', anio: '2022', link: REPO_PDFS },
+      { id: 1, nombre: 'Docker and Kubernetes Fundamentals', emisor: 'Kubernetes Academy Online', anio: '2022', link: '/certificados/docker-kubernetes-fundamentals-kubernetes-academy.pdf' },
       { id: 2, nombre: 'Architecting with Google Kubernetes Engine: Foundations', emisor: 'Coursera / Google Cloud', anio: '2022', link: 'https://www.coursera.org/account/accomplishments/verify/R4WSABEMSH2Z' },
     ],
   },
@@ -27,8 +27,8 @@ const grupos = ref([
     id: 3,
     nombre: 'Automatización e IA',
     items: [
-      { id: 1, nombre: 'IA para Programadores (chatbots, Claude, n8n)', emisor: 'EducacionIT', anio: '2025', link: REPO_PDFS },
-      { id: 2, nombre: 'Inteligencia Artificial y Productividad', emisor: 'EducacionIT', anio: '2025', link: REPO_PDFS },
+      { id: 1, nombre: 'IA para Programadores (chatbots, Claude, n8n)', emisor: 'EducacionIT', anio: '2025', link: '/certificados/ia-para-programadores-educacionit.pdf' },
+      { id: 2, nombre: 'Inteligencia Artificial y Productividad', emisor: 'EducacionIT', anio: '2025', link: '/certificados/ia-y-productividad-educacionit.pdf' },
     ],
   },
   {
