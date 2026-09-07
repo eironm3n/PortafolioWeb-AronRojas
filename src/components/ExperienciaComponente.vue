@@ -1,64 +1,113 @@
 <script setup>
-import icono1 from '/src/assets/ventas.svg';
-import icono2 from '/src/assets/ecomerce.svg';
-import icono3 from '/src/assets/configuracion.svg';
-import icono4 from '/src/assets/uiux.svg';
-/*import icono5 from '/src/assets/watch.svg';*/
-
 import { ref } from 'vue';
-const titulo = 'Desarrollador Software';
-const fecha = 'Desde Enero 2024 / Noviembre 2024';
+
+// NOTA (NDA): se nombra a ReMASA como empleadora. El cliente final y los
+// proyectos se describen por sector, sin datos sensibles. Si más adelante
+// se confirma que se pueden nombrar las empresas cliente, ajustar aquí.
 const experiencias = ref([
-    { id: 1, src: icono1, parrafo: 'Participé un equipo de 5 desarrolladores en la creación de una plataforma de comercio electrónico que incrementó las ventas en un 35% durante el primer año.' },
-    { id: 2, src: icono2, parrafo: 'Diseñé y desarrollé aplicaciones web utilizando Node.js, Js, HTML y CSS.' },
-    { id: 3, src: icono3, parrafo: 'Participe en la creación de una aplicacion con Java, tomando como base un codigo realizado en PSEINT con mis colegas de equipo.' },
-    { id: 4, src: icono4, parrafo: 'Colaboré con el enfoque de un producto educativo, para tomar el punto de inicio en el negocio de un software para la concientización de las apuesta en el publico joven.' },
-    /*{ id: 5, src: icono5, parrafo: 'Automaticé procesos de despliegue continuo utilizando Jenkins y Docker, reduciendo los tiempos de despliegue en un 40%.' },*/
+  {
+    id: 1,
+    puesto: 'Analista de Soporte de Aplicaciones L2',
+    empresa: 'ReMASA — asignado a operadora del sector energético',
+    periodo: 'Sep 2024 – Actualidad · Remoto',
+    logros: [
+      'Administración de infraestructura cloud en AWS (instancias EC2 con GPU, Linux y Windows) para plataformas de simulación de reservorios y cómputo intensivo.',
+      'Automatización de correcciones de datos y tareas operativas recurrentes con Python y Bash (apoyada con IA), reduciendo trabajo manual en procesos de saneamiento de datos.',
+      'Homologación e incorporación de nuevas aplicaciones: documentación técnica, gestión del cambio y coordinación con las áreas de Ciberseguridad y Networking según políticas corporativas.',
+      'Administración y capacitación de Microsoft 365 / OneDrive para usuarios internos; gestión de credenciales y altas.',
+      'Mejora continua del servicio de licencias y aplicaciones: diagnóstico de causa raíz y reducción de demoras en el uso de plataformas especializadas. [PENDIENTE: métricas antes/después]',
+      'Referente técnico y mano derecha del Team Leader, con autonomía para explorar, diseñar e implementar soluciones.',
+    ],
+  },
+  {
+    id: 2,
+    puesto: 'Soporte de Aplicaciones L1 · Trainee → Junior',
+    empresa: 'ReMASA — Proyecto CSG, cliente del sector oil & gas',
+    periodo: 'Nov 2021 – Sep 2024 · Remoto (LATAM y Europa)',
+    logros: [
+      'Soporte a clientes internos (geólogos, ingenieros de reservorios, exploración y analistas) sobre aplicaciones geocientíficas en Windows y Linux, con SLA definidos y gestión vía ServiceNow y Redmine.',
+      'Participación en la migración de infraestructura on-premise a la nube (Azure): alta de usuarios, configuración de aplicaciones y acompañamiento a ~200 usuarios durante la transición.',
+      'Gestión y mantenimiento de la base de conocimiento del equipo: procedimientos, fixes y documentación de versiones de aplicaciones y del servidor de licencias.',
+      'Tareas de infraestructura on-premise: integración de volúmenes RAID0 en Linux sobre cabinas de discos físicos.',
+      'Evolución de Trainee a Junior, asumiendo progresivamente tareas de nivel L2/L3 con acompañamiento del equipo.',
+    ],
+  },
+  {
+    id: 3,
+    puesto: 'Equipo de Desarrollo Interno · Automatización y QA',
+    empresa: 'ReMASA',
+    periodo: 'Feb 2026 – Actualidad',
+    logros: [
+      'Configuración de un flujo de automatización de tareas de RRHH con n8n, Google Workspace y WordPress/DIVI.',
+      'Análisis funcional y QA de la aplicación web desarrollada por el equipo.',
+      'Prácticas profesionalizantes de la Tecnicatura efectivizadas en este rol.',
+    ],
+  },
 ]);
 </script>
 
 <template>
-    <div class="card">
-        <h3 class="titulo">{{ titulo.toLocaleUpperCase() }}</h3>
-        <p class="fecha">{{ fecha }}</p>
-        <ul class="listado">
-            <li class="item" v-for="experencia in experiencias" :key="experencia.id">
-                <img class="imagen-svg" :src="experencia.src" width="45rem" :alt="experencia.parrafo">
-                <p>{{ experencia.parrafo }}</p>
-            </li>
+  <div class="card">
+    <ul class="roles">
+      <li class="rol" v-for="exp in experiencias" :key="exp.id">
+        <h3 class="puesto">{{ exp.puesto }}</h3>
+        <p class="empresa">{{ exp.empresa }}</p>
+        <p class="periodo">{{ exp.periodo }}</p>
+        <ul class="logros">
+          <li v-for="(logro, i) in exp.logros" :key="i">{{ logro }}</li>
         </ul>
-    </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style scoped>
 .card {
-    display: flex;
-    flex-direction: column;
-    padding: 2rem;
-    background-color: rgb(28, 41, 52);
-    border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  background-color: rgb(28, 41, 52);
+  border-radius: 15px;
 }
 
-.titulo {
-    font-size: 1.5rem;
-    color: coral;
+.roles {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0;
 }
 
-.fecha {
-    font-size: 1rem;
-    color: burlywood;
-    margin-bottom: 1rem;
+.rol {
+  border-left: 3px solid coral;
+  padding-left: 1.25rem;
 }
 
-.listado {
-    display: flex;
-    flex-direction: column;
+.puesto {
+  font-size: 1.35rem;
+  color: coral;
 }
 
-.item {
-    align-items: center;
-    display: flex;
-    padding: 1rem;
-    gap: 1.5rem;
+.empresa {
+  font-size: 1.05rem;
+  color: burlywood;
+  margin-top: 0.15rem;
+}
+
+.periodo {
+  font-size: 0.95rem;
+  color: rgba(235, 235, 235, 0.64);
+  margin-bottom: 0.75rem;
+}
+
+.logros {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 1.1rem;
+}
+
+.logros li {
+  list-style: disc;
+  font-size: 1rem;
 }
 </style>

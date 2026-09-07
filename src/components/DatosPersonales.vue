@@ -4,9 +4,9 @@ import linkedin from '/src/assets/linkedin_icon.svg';
 import github from '/src/assets/github_icon.svg';
 
 const title = 'Arón Rojas';
-const descripcion = 'Técnico Universitario en Programación - UTN';
-const residencia = 'Guaymallén, Mendoza, Argentina';
-const presentacion = 'Hola, Bienvenido a mi portafolio de proyectos. Soy un desarrollador de software con conocimientos en el desarrollo de aplicaciones web y de computadoras.';
+const descripcion = 'DevOps · Cloud (AWS/Azure/GCP) · Automatización';
+const residencia = 'Guaymallén, Mendoza, Argentina · Trabajo remoto';
+const presentacion = 'Analista de Soporte de Aplicaciones L2 con 5 años en entornos críticos de cómputo intensivo (cloud + GPU) para el sector energético. Técnico Universitario en Programación (UTN). En transición a DevOps y Cloud Engineering: administración de infraestructura, contenedores y automatización con Python y Bash.';
 const redesSociales = [
   { id: 1, name: 'linkedin', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/' },
   { id: 3, name: 'github', src: github, url: 'https://github.com/eironm3n' },

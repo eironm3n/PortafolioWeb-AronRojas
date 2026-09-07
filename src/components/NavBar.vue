@@ -11,11 +11,12 @@
 <script setup>
 import { ref } from 'vue';
 const navegacion= ref([
-    {id:1, nombre:'Educación', enlace:'#educacion'},
-    {id:2, nombre:'Experiencia', enlace:'#experiencia'},
-    {id:3, nombre:'Proyectos', enlace:'#proyectos'},
-    {id:4, nombre:'Habilidades', enlace:'#habilidades'},
-    {id:5, nombre:'Intereses', enlace:'#intereses'}
+    {id:1, nombre:'Experiencia', enlace:'#experiencia'},
+    {id:2, nombre:'Habilidades', enlace:'#habilidades'},
+    {id:3, nombre:'Certificaciones', enlace:'#certificaciones'},
+    {id:4, nombre:'Proyectos', enlace:'#proyectos'},
+    {id:5, nombre:'Educación', enlace:'#educacion'},
+    {id:6, nombre:'Intereses', enlace:'#intereses'}
 ]);
 </script>
 
