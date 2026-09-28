@@ -59,7 +59,7 @@ const habilidades = ref([
     id: 5, nombre: 'Lenguajes y Datos', habilidades: [
       { id: 1, nombre: 'Python', nivel: 'Intermedio', icono: iconPython },
       { id: 2, nombre: 'SQL', nivel: 'Intermedio', icono: iconSql },
-      { id: 3, nombre: 'JavaScript', nivel: 'Intermedio', icono: iconJs },
+      { id: 3, nombre: 'JavaScript', nivel: 'Básico-intermedio', icono: iconJs },
       { id: 4, nombre: 'Java', nivel: 'Académico', icono: iconJava },
       { id: 5, nombre: 'Vue.js', nivel: 'Intermedio', icono: iconVue },
       { id: 6, nombre: 'Node.js', nivel: 'Básico', icono: iconNode },

@@ -60,9 +60,9 @@ const misProyectos = ref([
   },
   {
     id: 7,
-    titulo: 'OpenCaption Live — Vibeathon Nerdearla (2026)',
-    descripcion: 'Transcripción y traducción simultánea en tiempo real para conferencias, construido para la Vibeathon de Nerdearla 2026: ingesta de audio en vivo por WebSocket, transcripción y traducción vía Gemini Live API, múltiples sesiones concurrentes, exportación de subtítulos (SRT/VTT/texto) y overlay para OBS/vMix.',
-    stack: 'Python · FastAPI · WebSockets · Gemini Live API · Docker',
+    titulo: 'OpenCaption Live — subtítulos en vivo (2026)',
+    descripcion: 'Transcripción y traducción simultánea en tiempo real para conferencias, open source. Nació como propuesta para la Vibeathon de Nerdearla 2026; lo terminé después y lo publiqué como proyecto independiente. Ingesta de audio en vivo por WebSocket, múltiples sesiones concurrentes, exportación de subtítulos (SRT/VTT/texto) y overlay para OBS/vMix. Por defecto corre 100% local, sin API keys ni costo (Whisper + Argos Translate u Ollama); Gemini Live API como motor opcional.',
+    stack: 'Python · FastAPI · WebSockets · Whisper · Argos/Ollama · Docker',
     projectoLink: '',
     githubLink: 'https://github.com/eironm3n/vibeathon-live-captions',
     estado: 'publicado',
@@ -70,7 +70,7 @@ const misProyectos = ref([
   {
     id: 8,
     titulo: 'Infraestructura como código — Terraform (dedicado)',
-    descripcion: 'Proyecto dedicado de IaC: red y cómputo reproducibles en AWS con módulos reutilizables, backend de estado remoto (S3 + DynamoDB) y validación en CI.',
+    descripcion: 'Próximo proyecto dedicado de IaC. Objetivo: red y cómputo reproducibles en AWS con módulos reutilizables, backend de estado remoto (S3 + DynamoDB) y validación en CI. Hoy Terraform se usa dentro de shortlink-service (validado en CI, sin aplicar).',
     stack: 'Terraform · AWS',
     projectoLink: '',
     githubLink: '',
