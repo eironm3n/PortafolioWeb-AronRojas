@@ -26,15 +26,15 @@ import { ref } from 'vue';
 const habilidades = ref([
   {
     id: 1, nombre: 'Cloud', habilidades: [
-      { id: 1, nombre: 'AWS (EC2, GPU, IAM)', nivel: 'Práctico', icono: iconAws },
-      { id: 2, nombre: 'Microsoft Azure', nivel: 'Certificado AZ-900', icono: iconAzure },
+      { id: 1, nombre: 'AWS (EC2, instancias GPU)', nivel: 'Uso profesional', icono: iconAws },
+      { id: 2, nombre: 'Microsoft Azure (VMs, VDIs)', nivel: 'Uso profesional · curso AZ-900', icono: iconAzure },
       { id: 3, nombre: 'Google Cloud Platform', nivel: 'Certificado (fundamentos + GKE)', icono: iconGcp },
     ],
   },
   {
     id: 2, nombre: 'Infraestructura y Sistemas', habilidades: [
       { id: 1, nombre: 'Linux (Red Hat, Debian, Arch)', nivel: 'Avanzado', icono: iconLinux },
-      { id: 2, nombre: 'Windows Server', nivel: 'Intermedio', icono: null },
+      { id: 2, nombre: 'Windows Server', nivel: 'Uso profesional', icono: null },
       { id: 3, nombre: 'Administración de sistemas', nivel: 'Avanzado', icono: null },
       { id: 4, nombre: 'RDP / VNC / Citrix', nivel: 'Uso profesional', icono: null },
     ],
@@ -44,7 +44,7 @@ const habilidades = ref([
       { id: 1, nombre: 'Docker', nivel: 'Intermedio', icono: iconDocker },
       { id: 2, nombre: 'Kubernetes', nivel: 'Fundamentos', icono: iconK8s },
       { id: 3, nombre: 'Bash scripting', nivel: 'Avanzado', icono: iconBash },
-      { id: 4, nombre: 'PowerShell', nivel: 'Intermedio', icono: iconPowershell },
+      { id: 4, nombre: 'PowerShell', nivel: 'Uso profesional', icono: iconPowershell },
       { id: 5, nombre: 'n8n', nivel: 'Intermedio', icono: iconN8n },
     ],
   },
@@ -71,7 +71,7 @@ const habilidades = ref([
     id: 6, nombre: 'Soporte y Gestión del Servicio', habilidades: [
       { id: 1, nombre: 'ServiceNow', nivel: 'Uso profesional', icono: null },
       { id: 2, nombre: 'Jira / InVgate / Redmine', nivel: 'Uso profesional', icono: null },
-      { id: 3, nombre: 'ITIL / SLA / gestión del cambio', nivel: 'Aplicado', icono: null },
+      { id: 3, nombre: 'SLA / gestión de incidencias', nivel: 'Aplicado', icono: null },
       { id: 4, nombre: 'Homologación de aplicaciones', nivel: 'Aplicado', icono: null },
     ],
   },

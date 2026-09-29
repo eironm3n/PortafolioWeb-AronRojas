@@ -8,11 +8,11 @@ const grupos = ref([
     id: 1,
     nombre: 'Cloud e Infraestructura',
     items: [
-      { id: 1, nombre: 'Microsoft Azure Fundamentals (AZ-900)', emisor: 'EducacionIT · examen oficial Microsoft', anio: '2023', link: '/certificados/azure-fundamentals-az900-educacionit.pdf' },
+      { id: 1, nombre: 'Microsoft Azure Fundamentals – Curso preparatorio AZ-900', emisor: 'EducacionIT', anio: '2023', link: '/certificados/azure-fundamentals-az900-educacionit.pdf' },
       { id: 2, nombre: 'Google Cloud Fundamentals: Core Infrastructure', emisor: 'Coursera / Google Cloud', anio: '2021', link: 'https://www.coursera.org/account/accomplishments/verify/4SJ6HG7YFGNJ' },
       { id: 3, nombre: 'Essential Cloud Infrastructure: Foundation', emisor: 'Coursera / Google Cloud', anio: '2022', link: 'https://www.coursera.org/account/accomplishments/verify/FGNQY3JGUD2R' },
       { id: 4, nombre: 'Essential Cloud Infrastructure: Core Services', emisor: 'Coursera / Google Cloud', anio: '2022', link: 'https://www.coursera.org/account/accomplishments/verify/2ALJ6AARKCA8' },
-      { id: 5, nombre: 'Linux Administrador', emisor: 'EducacionIT', anio: '2022', link: '/certificados/linux-administrador-educacionit.pdf' },
+      { id: 5, nombre: 'Linux Administrador (curso, 18 h)', emisor: 'EducacionIT', anio: '2022', link: '/certificados/linux-administrador-educacionit.pdf' },
     ],
   },
   {

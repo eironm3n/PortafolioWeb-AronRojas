@@ -11,7 +11,7 @@ fechaColor.value = [
 ];
 /*Esta es la forma de utilizar el arreglo, sin el metodo value*/
 const educacion = ref([
-  {fecha: '2025', title: 'Técnico Universitario en Programación', descripcion: 'UTN — Facultad Regional San Rafael. Cursada finalizada en diciembre de 2025; título en trámite a través de las prácticas profesionalizantes (2026). Incumbencias: desarrollo en distintos lenguajes, análisis y control de sistemas informáticos, operación y programación de computadoras.', enlace:'https://www.frsr.utn.edu.ar/'},
+  {fecha: '2025', title: 'Técnico Universitario en Programación', descripcion: 'UTN — Facultad Regional San Rafael. Cursada finalizada en diciembre de 2025; prácticas profesionalizantes realizadas en ReMASA (feb – jun 2026); título en trámite. Incumbencias: desarrollo en distintos lenguajes, análisis y control de sistemas informáticos, operación y programación de computadoras.', enlace:'https://www.frsr.utn.edu.ar/'},
   {fecha: '2024', title: 'Inicio de la Tecnicatura Universitaria en Programación', descripcion: 'Comienzo de la carrera en la UTN FRSR bajo modalidad a distancia sincrónica, en paralelo a la actividad laboral en soporte de aplicaciones e infraestructura.', enlace:'https://www.frsr.utn.edu.ar/'},
   {fecha: '2021', title: 'Google IT Support Professional Certificate', descripcion: 'Coursera. Fundamentos de soporte técnico de IT: troubleshooting, redes, sistemas operativos, administración de sistemas y seguridad informática. Base sobre la que se construyó el resto de la carrera.', enlace:'https://www.coursera.org/account/accomplishments/professional-cert/VGEAUBTJ5CA7'},
 ]);

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import FondoLava from './FondoLava.vue';
 //Este es un arreglo con ref para que se pueda reactivar el cambio de los intereses
 const intereses = ref([
-    'Cloud y DevOps: Me interesa el diseño de infraestructura reproducible, la automatización de operaciones y la observabilidad. Aprendo y pruebo herramientas en entornos propios antes de aplicarlas.',
+    'Infraestructura y automatización: Me interesa el diseño de infraestructura reproducible, la automatización de operaciones y la observabilidad. Aprendo y pruebo herramientas en entornos propios antes de aplicarlas.',
     'Homelab y self-hosting: Monto servicios en casa (contenedores, monitoreo, backups) para experimentar con lo que después uso en el trabajo.',
     'Inteligencia Artificial aplicada: Uso de IA para generar scripts, automatizar tareas y documentar de forma clara y consistente.',
     'Boxeo: Lo practico para manejar el estrés y mantener un estado físico sano.',
