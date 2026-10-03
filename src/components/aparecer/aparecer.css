@@ -1,0 +1,42 @@
+/* Estilos de la directiva v-aparecer (ver aparecer.js). Globales a propósito, con prefijo propio. */
+[data-aparecer] {
+  transition:
+    opacity var(--aparecer-duracion, 700ms) cubic-bezier(0.22, 1, 0.36, 1) var(--aparecer-retraso, 0ms),
+    transform var(--aparecer-duracion, 700ms) cubic-bezier(0.22, 1, 0.36, 1) var(--aparecer-retraso, 0ms);
+}
+
+[data-aparecer]:not(.aparecer-visible) {
+  opacity: 0;
+}
+
+[data-aparecer='subir']:not(.aparecer-visible) {
+  transform: translateY(40px);
+}
+
+[data-aparecer='bajar']:not(.aparecer-visible) {
+  transform: translateY(-40px);
+}
+
+[data-aparecer='izquierda']:not(.aparecer-visible) {
+  transform: translateX(-60px);
+}
+
+[data-aparecer='derecha']:not(.aparecer-visible) {
+  transform: translateX(60px);
+}
+
+[data-aparecer='zoom']:not(.aparecer-visible) {
+  transform: scale(0.85);
+}
+
+[data-aparecer='voltear']:not(.aparecer-visible) {
+  transform: perspective(800px) rotateX(-70deg);
+}
+
+/* Con movimiento reducido solo queda un fundido corto, sin desplazamientos. */
+@media (prefers-reduced-motion: reduce) {
+  [data-aparecer] {
+    transform: none !important;
+    transition: opacity 300ms ease var(--aparecer-retraso, 0ms);
+  }
+}

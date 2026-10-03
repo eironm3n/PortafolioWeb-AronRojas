@@ -15,7 +15,7 @@ const intereses = ref([
     <div class="intereses-contenedor">
         <FondoLava />
         <ul class="contenedor-lista">
-            <li class="item" v-for="interes in intereses" :key="interes">
+            <li class="item" v-for="(interes, i) in intereses" :key="interes" v-aparecer="{ efecto: 'subir', retraso: i * 100 }">
                 {{ interes }}
             </li>
         </ul>
@@ -26,6 +26,12 @@ const intereses = ref([
 .intereses-contenedor {
     display: flex;
     position: relative;
+    /* Fondo oscuro propio: el texto es claro y en modo claro quedaba sobre blanco donde la lava no llega.
+       isolation crea el contexto de apilamiento para que la lava (z-index: -1) quede encima de este fondo. */
+    isolation: isolate;
+    background-color: #1c1530;
+    border-radius: 5px;
+    overflow: hidden;
     margin: 0 auto;
     max-width: 85%;
     padding: 1rem;

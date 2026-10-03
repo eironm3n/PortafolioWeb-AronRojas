@@ -1,0 +1,244 @@
+/*
+ * Micro-animaciones en CSS puro. Keyframes adaptados de Animate.css v4
+ * (https://animate.style), © Daniel Eden, licencia MIT: https://github.com/animate-css/animate.css/blob/main/LICENSE
+ *
+ * Uso: agregar la clase (ej. class="micro-latido"). Para repetirla, usar reproducir() de micro.js.
+ * Duración ajustable con --micro-duracion (1s por defecto) y repeticiones con --micro-repeticiones.
+ */
+:is(.micro-temblor, .micro-negar, .micro-latido, .micro-entrar, .micro-pulso, .micro-tada, .micro-elastico, .micro-gelatina) {
+  animation-duration: var(--micro-duracion, 1s);
+  animation-iteration-count: var(--micro-repeticiones, 1);
+  animation-fill-mode: both;
+}
+
+/* Error en un campo de formulario (shakeX). */
+.micro-temblor {
+  animation-name: micro-temblor;
+}
+
+@keyframes micro-temblor {
+  from,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translate3d(-10px, 0, 0);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translate3d(10px, 0, 0);
+  }
+}
+
+/* "No", más sutil que el temblor (headShake). */
+.micro-negar {
+  animation-name: micro-negar;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes micro-negar {
+  0% {
+    transform: translateX(0);
+  }
+  6.5% {
+    transform: translateX(-6px) rotateY(-9deg);
+  }
+  18.5% {
+    transform: translateX(5px) rotateY(7deg);
+  }
+  31.5% {
+    transform: translateX(-3px) rotateY(-5deg);
+  }
+  43.5% {
+    transform: translateX(2px) rotateY(3deg);
+  }
+  50% {
+    transform: translateX(0);
+  }
+}
+
+/* Me gusta / favorito (heartBeat). */
+.micro-latido {
+  animation-name: micro-latido;
+  animation-duration: calc(var(--micro-duracion, 1s) * 1.3);
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes micro-latido {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+/* Avisos que entran: "¡Copiado!", toasts, modales (bounceIn). */
+.micro-entrar {
+  animation-name: micro-entrar;
+  animation-duration: calc(var(--micro-duracion, 1s) * 0.75);
+}
+
+@keyframes micro-entrar {
+  from,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Llamar la atención sin molestar: etiqueta "Nuevo", botón principal (pulse). */
+.micro-pulso {
+  animation-name: micro-pulso;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes micro-pulso {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  50% {
+    transform: scale3d(1.05, 1.05, 1.05);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Logro o envío exitoso (tada). */
+.micro-tada {
+  animation-name: micro-tada;
+}
+
+@keyframes micro-tada {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  10%,
+  20% {
+    transform: scale3d(0.9, 0.9, 0.9) rotate3d(0, 0, 1, -3deg);
+  }
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+  }
+  40%,
+  60%,
+  80% {
+    transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Botón con personalidad al hacer clic (rubberBand). */
+.micro-elastico {
+  animation-name: micro-elastico;
+}
+
+@keyframes micro-elastico {
+  from {
+    transform: scale3d(1, 1, 1);
+  }
+  30% {
+    transform: scale3d(1.25, 0.75, 1);
+  }
+  40% {
+    transform: scale3d(0.75, 1.25, 1);
+  }
+  50% {
+    transform: scale3d(1.15, 0.85, 1);
+  }
+  65% {
+    transform: scale3d(0.95, 1.05, 1);
+  }
+  75% {
+    transform: scale3d(1.05, 0.95, 1);
+  }
+  to {
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+/* Algo divertido al pasar el mouse: íconos, emojis (jello). */
+.micro-gelatina {
+  animation-name: micro-gelatina;
+  transform-origin: center;
+}
+
+@keyframes micro-gelatina {
+  from,
+  11.1%,
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+  22.2% {
+    transform: skewX(-12.5deg) skewY(-12.5deg);
+  }
+  33.3% {
+    transform: skewX(6.25deg) skewY(6.25deg);
+  }
+  44.4% {
+    transform: skewX(-3.125deg) skewY(-3.125deg);
+  }
+  55.5% {
+    transform: skewX(1.5625deg) skewY(1.5625deg);
+  }
+  66.6% {
+    transform: skewX(-0.78125deg) skewY(-0.78125deg);
+  }
+  77.7% {
+    transform: skewX(0.390625deg) skewY(0.390625deg);
+  }
+  88.8% {
+    transform: skewX(-0.1953125deg) skewY(-0.1953125deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(.micro-temblor, .micro-negar, .micro-latido, .micro-entrar, .micro-pulso, .micro-tada, .micro-elastico, .micro-gelatina) {
+    animation: none !important;
+  }
+}

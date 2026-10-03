@@ -22,23 +22,47 @@
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
 }
 
-/* semantic color variables for this project */
+/* Variables semánticas del proyecto. Modo claro por defecto; el oscuro se aplica si el sistema
+   lo pide (salvo que se haya elegido claro con el botón de la barra) o si se eligió oscuro. */
 :root {
-  --color-background: var(--vt-c-white);
+  color-scheme: light;
+
+  --color-background: #f7f9fc;
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
 
-  --color-heading: var(--vt-c-text-light-1);
+  --color-heading: #03346E;
   --color-text: var(--vt-c-text-light-1);
+  --color-texto-suave: #4a5a6a;
+  --color-subtitulo: #7a5320;
+  --color-enlace: #03346E;
+
+  --color-acento: #03346E;
+  --color-sobre-acento: #ffffff;
+
+  --color-superficie: #ffffff;
+  --color-superficie-borde: #dde3ea;
+  --color-puesto: #b4441f;
+  --color-empresa: #7a5320;
+
+  --color-nav-fondo: #e3ebf3;
+  --color-nav-texto: #03346E;
+  --color-nav-borde: rgba(3, 52, 110, 0.25);
+  --color-nav-hover: rgba(3, 52, 110, 0.12);
+
+  --color-separador: #ccc;
 
   --section-gap: 160px;
 }
-/* Estilos para modo oscuro los dejaremos como estan por si mas adelante quieres agregarlo*/
+
+/* Modo oscuro: los tokens se repiten en los dos bloques porque CSS no permite compartirlos. */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-tema="claro"]) {
+    color-scheme: dark;
+
     --color-background: var(--vt-c-black);
     --color-background-soft: var(--vt-c-black-soft);
     --color-background-mute: var(--vt-c-black-mute);
@@ -46,10 +70,57 @@
     --color-border: var(--vt-c-divider-dark-2);
     --color-border-hover: var(--vt-c-divider-dark-1);
 
-    --color-heading: var(--vt-c-text-dark-1);
+    --color-heading: aliceblue;
     --color-text: var(--vt-c-text-dark-2);
+    --color-texto-suave: rgba(235, 235, 235, 0.64);
+    --color-subtitulo: rgb(209, 183, 148);
+    --color-enlace: var(--vt-c-white);
+
+    --color-acento: #6EACDA;
+    --color-sobre-acento: #021526;
+
+    --color-superficie: rgb(28, 41, 52);
+    --color-superficie-borde: transparent;
+    --color-puesto: coral;
+    --color-empresa: burlywood;
+
+    --color-nav-fondo: var(--vt-c-indigo);
+    --color-nav-texto: var(--vt-c-white);
+    --color-nav-borde: hsla(160, 100%, 37%, 0.2);
+    --color-nav-hover: hsla(160, 100%, 37%, 0.2);
   }
 }
+
+:root[data-tema="oscuro"] {
+  color-scheme: dark;
+
+  --color-background: var(--vt-c-black);
+  --color-background-soft: var(--vt-c-black-soft);
+  --color-background-mute: var(--vt-c-black-mute);
+
+  --color-border: var(--vt-c-divider-dark-2);
+  --color-border-hover: var(--vt-c-divider-dark-1);
+
+  --color-heading: aliceblue;
+  --color-text: var(--vt-c-text-dark-2);
+  --color-texto-suave: rgba(235, 235, 235, 0.64);
+  --color-subtitulo: rgb(209, 183, 148);
+  --color-enlace: var(--vt-c-white);
+
+  --color-acento: #6EACDA;
+  --color-sobre-acento: #021526;
+
+  --color-superficie: rgb(28, 41, 52);
+  --color-superficie-borde: transparent;
+  --color-puesto: coral;
+  --color-empresa: burlywood;
+
+  --color-nav-fondo: var(--vt-c-indigo);
+  --color-nav-texto: var(--vt-c-white);
+  --color-nav-borde: hsla(160, 100%, 37%, 0.2);
+  --color-nav-hover: hsla(160, 100%, 37%, 0.2);
+}
+
 *,
 *::before,
 *::after {
@@ -92,16 +163,16 @@ li{
 /*Estas son las reglas globales de la etiqueta section del main en App.vue*/
 section {
   padding: 2rem;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--color-separador);
   margin: 3rem 0rem 2rem 0rem;
 }
 section h2{
   font-size: 2rem;
-  color: aliceblue;
+  color: var(--color-heading);
   margin-bottom: 1.5rem;
   text-align: center;
 }
 
 section h3{
-  color: rgb(209, 183, 148);
+  color: var(--color-subtitulo);
 }
