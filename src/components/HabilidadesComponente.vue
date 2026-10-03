@@ -86,7 +86,7 @@ const habilidades = ref([
 
 <template>
   <div class="skills-contenedor">
-    <div v-for="habilidad in habilidades" :key="habilidad.id" class="skills-categoria">
+    <div v-for="(habilidad, i) in habilidades" :key="habilidad.id" v-aparecer="{ efecto: 'subir', retraso: (i % 2) * 120 }" class="skills-categoria">
       <h3>{{ habilidad.nombre }}</h3>
       <ul class="skills">
         <li v-for="skill in habilidad.habilidades" :key="skill.id" class="skill">
@@ -115,6 +115,8 @@ const habilidades = ref([
   font-size: 1.5em;
   color: aliceblue;
   font-weight: bold;
+  /* Separa el título del degradé, que en la esquina superior es casi blanco. */
+  text-shadow: 0 1px 3px rgba(2, 21, 38, 0.85);
 }
 
 .skills {

@@ -4,7 +4,7 @@ const fechaColor = ref([]);
 /*Esta es otra forma de utilizar el arreglo, con el metodo value*/
 fechaColor.value = [
   {color: '#41516c'},
-  {color: '#FBCA3E'},
+  {color: '#FBCA3E', texto: '#1e1e1e'},
   {color: '#E24A68'},
   {color: '#1B5F8C'},
   {color: '#4CADAD'}
@@ -19,38 +19,23 @@ const educacion = ref([
 
 <template>
     <ul>
-        <li v-for="(item, index) in educacion" :key="index" :style="{ '--fecha-color': fechaColor[index].color}">
+        <li v-for="(item, index) in educacion" :key="index" v-aparecer="index % 2 ? 'derecha' : 'izquierda'" :style="{ '--fecha-color': fechaColor[index].color, '--fecha-texto': fechaColor[index].texto }">
         <div class="fecha">{{ item.fecha }}</div>
         <h3 class="title">{{ item.title }}</h3>
         <div class="descripcion">{{ item.descripcion }}</div>
-        <a class="enlace" :href="item.enlace" target="_blank">Saber más</a>
+        <a class="enlace" :href="item.enlace" target="_blank" rel="noopener noreferrer">Saber más</a>
     </li>
     </ul>
 </template>
 
 <style scoped>
 /* Estilos generales */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap");
 *,
 *::before,
 *::after {
   margin: 0; 
   padding: 0; 
   box-sizing: border-box; 
-}
-
-/* Estilo para el cuerpo de la página */
-body {
-  --color: rgba(30, 30, 30); 
-  --bgColor: rgba(245, 245, 245); 
-  min-height: 100vh;
-  display: grid; 
-  align-content: center; 
-  gap: 2rem; 
-  padding: 2rem; 
-  font-family: "Poppins", sans-serif; 
-  color: var(--color); 
-  background: var(--bgColor); 
 }
 
 /* Estilos para la lista */
@@ -98,7 +83,7 @@ ul li .fecha {
   margin-inline: calc(var(--inlineP) * -1);
   text-align: center;
   background-color: var(--fecha-color);
-  color: white; 
+  color: var(--fecha-texto, white); /* el amarillo lleva texto oscuro para que se lea */
   font-size: 1.25rem;
   font-weight: 700;
   display: grid;

@@ -9,6 +9,14 @@
     <meta property="og:title" content="Arón Rojas — Infraestructura Cloud · Automatización · Datos">
     <meta property="og:description" content="5 años en soporte de aplicaciones e infraestructura cloud para el sector energético.">
     <meta property="og:type" content="website">
+    <meta name="color-scheme" content="light dark">
+    <!-- Aplica el tema elegido antes del primer pintado, para que no destelle el otro (ver NavBar.vue). -->
+    <script>
+      try {
+        const tema = localStorage.getItem('tema');
+        if (tema === 'claro' || tema === 'oscuro') document.documentElement.dataset.tema = tema;
+      } catch { /* sin acceso a localStorage: se usa el tema del sistema */ }
+    </script>
     <title>Arón Rojas — Infraestructura Cloud · Automatización · Datos</title>
   </head>
   <body>

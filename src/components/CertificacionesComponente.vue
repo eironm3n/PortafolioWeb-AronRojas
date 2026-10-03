@@ -45,7 +45,7 @@ const grupos = ref([
 
 <template>
   <div class="cert-contenedor">
-    <div class="cert-grupo" v-for="grupo in grupos" :key="grupo.id">
+    <div class="cert-grupo" v-for="(grupo, i) in grupos" :key="grupo.id" v-aparecer="{ efecto: 'subir', retraso: (i % 2) * 120 }">
       <h3>{{ grupo.nombre }}</h3>
       <ul class="cert-lista">
         <li class="cert" v-for="item in grupo.items" :key="item.id">
@@ -75,6 +75,8 @@ const grupos = ref([
   font-size: 1.4rem;
   font-weight: bold;
   color: aliceblue;
+  /* Separa el título del degradé, que en la esquina superior es casi blanco. */
+  text-shadow: 0 1px 3px rgba(2, 21, 38, 0.85);
 }
 
 .cert-lista {

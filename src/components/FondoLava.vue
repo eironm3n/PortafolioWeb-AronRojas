@@ -46,6 +46,15 @@
     transform-origin: 84px 93px;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .out-top,
+    .in-top,
+    .out-bottom,
+    .in-bottom {
+        animation: none;
+    }
+}
+
 svg {
     position: absolute;
     top: 0;

@@ -49,7 +49,7 @@ const experiencias = ref([
 <template>
   <div class="card">
     <ul class="roles">
-      <li class="rol" v-for="exp in experiencias" :key="exp.id">
+      <li class="rol" v-for="exp in experiencias" :key="exp.id" v-aparecer="'subir'">
         <h3 class="puesto">{{ exp.puesto }}</h3>
         <p class="empresa">{{ exp.empresa }}</p>
         <p class="periodo">{{ exp.periodo }}</p>
@@ -66,7 +66,8 @@ const experiencias = ref([
   display: flex;
   flex-direction: column;
   padding: 2rem;
-  background-color: rgb(28, 41, 52);
+  background-color: var(--color-superficie);
+  border: 1px solid var(--color-superficie-borde);
   border-radius: 15px;
 }
 
@@ -78,24 +79,24 @@ const experiencias = ref([
 }
 
 .rol {
-  border-left: 3px solid coral;
+  border-left: 3px solid var(--color-puesto);
   padding-left: 1.25rem;
 }
 
 .puesto {
   font-size: 1.35rem;
-  color: coral;
+  color: var(--color-puesto);
 }
 
 .empresa {
   font-size: 1.05rem;
-  color: burlywood;
+  color: var(--color-empresa);
   margin-top: 0.15rem;
 }
 
 .periodo {
   font-size: 0.95rem;
-  color: rgba(235, 235, 235, 0.64);
+  color: var(--color-texto-suave);
   margin-bottom: 0.75rem;
 }
 

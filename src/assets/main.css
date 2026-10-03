@@ -10,7 +10,7 @@
 
 a {
   text-decoration: none; /* Elimina el subrayado de los enlaces */
-  color: var(--vt-c-white); /* Establece el color del enlace usando una variable CSS */
+  color: var(--color-enlace); /* Color de enlace según el tema (claro u oscuro) */
 }
 
 
@@ -22,6 +22,7 @@ a {
     display: flex; /* Aplica un diseño flexible al contenedor */
     flex-direction: column; /* Organiza los elementos en una columna */
     font-size: small; /* Reduce el tamaño de la fuente en pantallas pequeñas */
+    padding: 1rem; /* Menos relleno para que el contenido no quede apretado en celulares */
   }
 }
 
