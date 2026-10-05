@@ -26,7 +26,11 @@ const experiencias = ref([
       'Macros en VBA para automatizar cálculos y reportes internos.',
       'Administración de fileservers, Google Workspace y Microsoft 365, gestión de accesos y altas, y onboarding de usuarios.',
       'Mantenimiento del sitio web corporativo (WordPress + Divi).',
-      'Automatización de procesos de RRHH con n8n, Google Workspace y WordPress + Divi.',
+      'Equipo de desarrollo interno (desde feb 2026): en paralelo al soporte, participo en el equipo que crea soluciones para la compañía, sus clientes y otras empresas.',
+      'Soluciones asistidas por IA y automatización de procesos internos, como un flujo para RRHH con n8n integrado con Google Workspace y WordPress.',
+      'Pruebas de versiones antes de su presentación, documentación de bugs y mejoras, y resolución de parte de los bugs reportados.',
+      'Armado de entornos Windows y Linux, contenedores con Docker y configuraciones en YAML, con n8n, Make, Cloudflare, DigitalOcean, Hostinger y Google Cloud (administración básica).',
+      'Check-ins diarios con el equipo y seguimiento del trabajo en Jira.',
     ],
   },
   {

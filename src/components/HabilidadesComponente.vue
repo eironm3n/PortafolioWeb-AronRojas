@@ -28,7 +28,7 @@ const habilidades = ref([
     id: 1, nombre: 'Cloud', habilidades: [
       { id: 1, nombre: 'AWS (EC2, instancias GPU)', nivel: 'Uso profesional', icono: iconAws },
       { id: 2, nombre: 'Microsoft Azure (VMs, VDIs)', nivel: 'Uso profesional · curso AZ-900', icono: iconAzure },
-      { id: 3, nombre: 'Google Cloud Platform', nivel: 'Certificado (fundamentos + GKE)', icono: iconGcp },
+      { id: 3, nombre: 'Google Cloud Platform', nivel: 'Fundamentos + administración básica', icono: iconGcp },
     ],
   },
   {
