@@ -15,23 +15,33 @@ a {
 
 
 
-/*Agregaremos esta media query pensando en el responsivo desde ahora por esta regla:*/
+/* Todo el sitio es una pantalla: barra arriba, portada en el medio y pie abajo. Las filas de arriba
+   y de abajo se reparten el espacio libre por igual, así la tarjeta queda en el centro exacto de la
+   ventana (no solo del hueco entre la barra y el pie). */
+#app {
+  display: grid;
+  grid-template-rows: 1fr auto 1fr;
+  min-height: 100svh;
+  padding-block: 1rem;
+}
+
+#app > nav {
+  align-self: start;
+}
+
+#app > footer {
+  align-self: end;
+}
 
 @media (max-width: 768px) {
   #app {
-    display: flex; /* Aplica un diseño flexible al contenedor */
-    flex-direction: column; /* Organiza los elementos en una columna */
     font-size: small; /* Reduce el tamaño de la fuente en pantallas pequeñas */
-    padding: 1rem; /* Menos relleno para que el contenido no quede apretado en celulares */
+    padding: 0.75rem; /* Menos relleno para que el contenido no quede apretado en celulares */
   }
 }
 
 @media (min-width: 1024px) {
   #app {
-    display: flex; /* Aplica un diseño flexible al contenedor */
-    flex-direction: column; /* Organiza los elementos en una columna */
     width: 80%; /* Limita el ancho del contenedor al 80% de la pantalla en dispositivos grandes */
   }
 }
-
-

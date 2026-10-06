@@ -176,7 +176,7 @@ onBeforeUnmount(() => ctx.revert());
   gap: 20px;
   padding: 20px;
   justify-content: center;
-  background: linear-gradient(-45deg, #021526, #03346E, #6EACDA, #E2E2B6);
+  background: var(--hoja-degrade);
   background-size: 400% 400%;
   animation: gradient 15s ease infinite;
 }
@@ -246,8 +246,8 @@ onBeforeUnmount(() => ctx.revert());
   align-items: center;
   justify-content: center;
   height: 160px;
-  background: linear-gradient(135deg, #03346E, #021526);
-  color: #6EACDA;
+  background: var(--hoja-miniatura);
+  color: var(--hoja-miniatura-texto);
   font-weight: 700;
   letter-spacing: 0.5px;
   padding: 0 1rem;
@@ -286,7 +286,7 @@ onBeforeUnmount(() => ctx.revert());
 
 .stack {
   font-size: 0.85em !important;
-  color: #03346E !important;
+  color: var(--hoja-stack) !important;
   font-weight: 600;
 }
 
@@ -298,7 +298,7 @@ onBeforeUnmount(() => ctx.revert());
 }
 
 .proyecto-links .btn-ver-mas {
-  background-color: #0062CC;
+  background-color: var(--hoja-boton);
   color: #fff;
   padding: 10px 15px;
   border-radius: 5px;
@@ -307,7 +307,7 @@ onBeforeUnmount(() => ctx.revert());
 }
 
 .proyecto-links .btn-ver-mas:hover {
-  background-color: #004A99;
+  background-color: var(--hoja-boton-hover);
 }
 
 .proyecto-links .github-link {

@@ -62,7 +62,7 @@ const grupos = ref([
 <style scoped>
 .cert-contenedor {
   padding: 2rem;
-  background: linear-gradient(-45deg, #021526, #03346E, #6EACDA, #E2E2B6);
+  background: var(--hoja-degrade);
   border-radius: 10px;
 }
 
@@ -98,13 +98,13 @@ const grupos = ref([
   background-color: rgba(241, 245, 243, 0.9);
   padding: 0.6rem 0.8rem;
   border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(2, 151, 151, 0.5);
+  box-shadow: 0 4px 12px color-mix(in srgb, var(--hoja-resalte) 55%, transparent);
   color: #222;
   transition: background-color 0.3s;
 }
 
 .cert a:hover {
-  background-color: rgba(2, 151, 151, 0.85);
+  background-color: var(--hoja-resalte);
   color: #fff;
 }
 

@@ -1,107 +1,111 @@
 <template>
-    <nav class="navbar">
-        <ul class="navbar-menu">
-            <li v-for="nav in navegacion" :key="nav.id">
-                <a :href="nav.enlace" class="nav-item">{{ nav.nombre }}</a>
-            </li>
-            <li>
-                <button type="button" class="nav-item boton-tema" :aria-label="`Cambiar a modo ${tema === 'oscuro' ? 'claro' : 'oscuro'}`" @click="alternarTema">
-                    <svg v-if="tema === 'oscuro'" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                        <circle cx="12" cy="12" r="4.5" fill="currentColor" />
-                        <path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-                    </svg>
-                    <svg v-else viewBox="0 0 24 24" width="18" height="18" aria-hidden="true">
-                        <path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11Z" fill="currentColor" />
-                    </svg>
-                </button>
+    <nav class="navbar" aria-label="Secciones">
+        <span class="espaciador" aria-hidden="true"></span>
+        <!-- Solapas del legajo: cada hoja sale de su solapa y se guarda en ella (ver legajo/). -->
+        <ul class="pestanas">
+            <li v-for="hoja in hojas" :key="hoja.id">
+                <a :href="`#${hoja.id}`" class="pestana" :class="{ activa: activa === hoja.id }" :data-hoja="hoja.id" :aria-expanded="activa === hoja.id" @click.prevent="alternar(hoja.id)">{{ hoja.nombre }}</a>
             </li>
         </ul>
+        <BotonTema class="boton-tema" />
     </nav>
 </template>
 
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
-const navegacion= ref([
-    {id:1, nombre:'Experiencia', enlace:'#experiencia'},
-    {id:2, nombre:'Habilidades', enlace:'#habilidades'},
-    {id:3, nombre:'Certificaciones', enlace:'#certificaciones'},
-    {id:4, nombre:'Proyectos', enlace:'#proyectos'},
-    {id:5, nombre:'Educación', enlace:'#educacion'},
-    {id:6, nombre:'Intereses', enlace:'#intereses'}
-]);
-
-// Tema: sigue al sistema hasta que se elige uno con el botón; la elección se guarda en localStorage
-// y la aplica el script de index.html antes de pintar. Los colores de cada tema están en base.css.
-const sistemaOscuro = window.matchMedia('(prefers-color-scheme: dark)');
-const temaActual = () => document.documentElement.dataset.tema || (sistemaOscuro.matches ? 'oscuro' : 'claro');
-const tema = ref(temaActual());
-const actualizarTema = () => (tema.value = temaActual());
-
-function alternarTema() {
-  const nuevo = tema.value === 'oscuro' ? 'claro' : 'oscuro';
-  document.documentElement.dataset.tema = nuevo;
-  try {
-    localStorage.setItem('tema', nuevo);
-  } catch {
-    // Sin acceso a localStorage el cambio vale solo para esta visita.
-  }
-  tema.value = nuevo;
-}
-
-onMounted(() => sistemaOscuro.addEventListener('change', actualizarTema));
-onBeforeUnmount(() => sistemaOscuro.removeEventListener('change', actualizarTema));
+import BotonTema from './tema/BotonTema.vue';
+import { hojas, activa, alternar } from './legajo/legajo.js';
 </script>
 
 <style scoped>
+/* Barra con las solapas centradas: el espaciador de la izquierda mide lo mismo que la columna del
+   botón de tema, así las solapas quedan en el centro exacto. Va por encima de la hoja abierta. */
 .navbar {
-    background-color: var(--color-nav-fondo); 
-    color: var(--color-nav-texto); 
-    padding: 0.5rem 1rem; 
+    position: sticky;
+    top: 0.5rem;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: color-mix(in srgb, var(--color-nav-fondo) 80%, transparent);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    color: var(--color-nav-texto);
+    padding: 0.5rem 0.75rem 0;
 }
 
-.navbar-menu {
-    display: flex; 
-    flex-wrap: wrap; /* en pantallas angostas los links pasan a otra línea en vez de salirse */
-    justify-content: flex-end; 
-    gap: 0.4rem;
-    list-style: none; 
+/* Todas las solapas del mismo ancho (el de la más larga). */
+.pestanas {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 0.3rem;
+    align-self: end;
+    list-style: none;
     padding: 0;
 }
 
-a,
-.boton-tema {
-    display: inline-block;
+/* Solapa de carpeta: esquinas de arriba redondeadas, apoyada sobre el borde inferior de la barra. */
+.pestana {
+    display: block;
+    padding: 0.45rem 1rem;
+    text-align: center;
+    white-space: nowrap;
     color: var(--color-nav-texto);
-    border: 1px solid; 
-    border-color: var(--color-nav-borde);
-    border-radius: 5px; 
-    text-decoration: none; 
-    transition: 0.4s;
-    padding: 5px; 
+    border: 1px solid var(--color-nav-borde);
+    border-bottom: none;
+    border-radius: 9px 9px 0 0;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
 }
 
-a:hover,
-.boton-tema:hover {
-    background-color: var(--color-nav-hover); 
+.pestana:hover,
+.pestana:focus-visible {
+    background-color: var(--color-nav-hover);
+}
+
+/* La solapa abierta toma el color de la hoja y una línea de acento arriba; no cambia de tamaño. */
+.pestana.activa {
+    background-color: var(--color-background);
+    color: var(--color-heading);
+    box-shadow: inset 0 3px 0 var(--color-acento);
 }
 
 .boton-tema {
-    display: inline-flex;
-    align-items: center;
-    height: 100%;
-    background: none;
-    font: inherit;
-    cursor: pointer;
+    justify-self: end;
+    margin-bottom: 0.5rem;
 }
 
-@media (max-width: 768px) {
-  .navbar {
-    padding: 0.5rem;
-  }
-
-  .navbar-menu {
-    justify-content: center; 
-  }
+/* En táctiles, fondo más opaco en vez de desenfoque (se recalcularía en cada cuadro de la tela). */
+@media (max-width: 768px), (pointer: coarse) {
+    .navbar {
+        backdrop-filter: none;
+        background-color: color-mix(in srgb, var(--color-nav-fondo) 94%, transparent);
+    }
 }
 
+/* Si las seis solapas no entran en una fila con el centro exacto (celulares y tablets), van en una
+   grilla pareja de 3 × 2 solapas redondeadas y el botón de tema pasa al pie (ver App.vue). */
+@media (max-width: 1180px) {
+    .navbar {
+        display: block;
+        padding: 0.4rem;
+    }
+
+    .espaciador,
+    .boton-tema {
+        display: none;
+    }
+
+    .pestanas {
+        grid-auto-flow: row;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.35rem;
+    }
+
+    .pestana {
+        padding: 0.45rem 0.25rem;
+        border-bottom: 1px solid var(--color-nav-borde);
+        border-radius: 8px;
+    }
+}
 </style>

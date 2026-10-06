@@ -27,20 +27,21 @@
 :root {
   color-scheme: light;
 
-  --color-background: #f7f9fc;
+  /* Modo claro: blanco rosado con acentos frambuesa, a tono con la tela rosa del inicio. */
+  --color-background: #fff4f9;
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
 
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
 
-  --color-heading: #03346E;
+  --color-heading: #9c0a55;
   --color-text: var(--vt-c-text-light-1);
   --color-texto-suave: #4a5a6a;
   --color-subtitulo: #7a5320;
-  --color-enlace: #03346E;
+  --color-enlace: #9c0a55;
 
-  --color-acento: #03346E;
+  --color-acento: #c2116e;
   --color-sobre-acento: #ffffff;
 
   --color-superficie: #ffffff;
@@ -48,12 +49,27 @@
   --color-puesto: #b4441f;
   --color-empresa: #7a5320;
 
-  --color-nav-fondo: #e3ebf3;
-  --color-nav-texto: #03346E;
-  --color-nav-borde: rgba(3, 52, 110, 0.25);
-  --color-nav-hover: rgba(3, 52, 110, 0.12);
+  --color-nav-fondo: #fde4ef;
+  --color-nav-texto: #9c0a55;
+  --color-nav-borde: rgba(156, 10, 85, 0.25);
+  --color-nav-hover: rgba(194, 17, 110, 0.12);
 
   --color-separador: #ccc;
+
+  /* Tarjeta del inicio, sobre la tela de ondas. */
+  --color-hero-tarjeta: rgba(255, 255, 255, 0.7);
+  --color-hero-texto: #3b4b5c;
+  --color-hero-titulo: #9c0a55;
+  --color-hero-nombre: #3b1027;
+
+  /* Interior de las hojas (Habilidades, Certificaciones, Proyectos). */
+  --hoja-degrade: linear-gradient(-45deg, #4a0428, #9c0a55, #ff4fa3, #ffd6e8);
+  --hoja-resalte: rgba(194, 17, 110, 0.55);
+  --hoja-miniatura: linear-gradient(135deg, #9c0a55, #4a0428);
+  --hoja-miniatura-texto: #ffc2de;
+  --hoja-boton: #c2116e;
+  --hoja-boton-hover: #9c0a55;
+  --hoja-stack: #9c0a55;
 
   --section-gap: 160px;
 }
@@ -88,6 +104,19 @@
     --color-nav-texto: var(--vt-c-white);
     --color-nav-borde: hsla(160, 100%, 37%, 0.2);
     --color-nav-hover: hsla(160, 100%, 37%, 0.2);
+
+    --color-hero-tarjeta: rgba(16, 40, 92, 0.6);
+    --color-hero-texto: rgba(235, 235, 235, 0.64);
+    --color-hero-titulo: #8fd3ff;
+    --color-hero-nombre: #ffffff;
+
+    --hoja-degrade: linear-gradient(-45deg, #021526, #03346E, #6EACDA, #E2E2B6);
+    --hoja-resalte: rgba(2, 151, 151, 0.96);
+    --hoja-miniatura: linear-gradient(135deg, #03346E, #021526);
+    --hoja-miniatura-texto: #6EACDA;
+    --hoja-boton: #0062CC;
+    --hoja-boton-hover: #004A99;
+    --hoja-stack: #03346E;
   }
 }
 
@@ -119,6 +148,19 @@
   --color-nav-texto: var(--vt-c-white);
   --color-nav-borde: hsla(160, 100%, 37%, 0.2);
   --color-nav-hover: hsla(160, 100%, 37%, 0.2);
+
+  --color-hero-tarjeta: rgba(16, 40, 92, 0.6);
+  --color-hero-texto: rgba(235, 235, 235, 0.64);
+  --color-hero-titulo: #8fd3ff;
+  --color-hero-nombre: #ffffff;
+
+  --hoja-degrade: linear-gradient(-45deg, #021526, #03346E, #6EACDA, #E2E2B6);
+  --hoja-resalte: rgba(2, 151, 151, 0.96);
+  --hoja-miniatura: linear-gradient(135deg, #03346E, #021526);
+  --hoja-miniatura-texto: #6EACDA;
+  --hoja-boton: #0062CC;
+  --hoja-boton-hover: #004A99;
+  --hoja-stack: #03346E;
 }
 
 *,
@@ -159,12 +201,22 @@ body {
 li{
   list-style: none;
 }
+
+/* Foco visible para quien navega con teclado (el mouse no lo muestra). */
+:focus-visible {
+  outline: 2px solid var(--color-acento);
+  outline-offset: 2px;
+}
 /*Agregado en el capitulo 5*/
 /*Estas son las reglas globales de la etiqueta section del main en App.vue*/
+/* Las secciones son paneles translúcidos: la tela de ondas (fija, detrás de todo) se ve alrededor. */
 section {
   padding: 2rem;
-  border-bottom: 1px solid var(--color-separador);
   margin: 3rem 0rem 2rem 0rem;
+  background: color-mix(in srgb, var(--color-background) 85%, transparent);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--color-border);
+  border-radius: 14px;
 }
 section h2{
   font-size: 2rem;

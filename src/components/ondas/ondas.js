@@ -13,12 +13,14 @@
  * @property {number} [intensidad=0.62]      Altura de las ondas.
  * @property {string} [colorBajo='#a983f5']  Color de los valles.
  * @property {string} [colorAlto='#fff0f8']  Color de las crestas.
+ * @property {string} [colorFondo='#000000'] Color de fondo (la viñeta funde los puntos hacia él).
  * @property {number} [foco=3.2]             Distancia a la cámara que queda nítida.
  * @property {number} [apertura=1.79]        Cuánto se desenfocan los puntos fuera del foco.
  * @property {number} [tamano=10]            Tamaño base de los puntos.
  * @property {number} [opacidad=0.8]         Opacidad general.
  * @property {number} [vinetaOscuridad=1.5]  Ancho del degradé de la viñeta.
  * @property {number} [vinetaInicio=0.4]     Dónde empieza a oscurecer la viñeta.
+ * @property {number} [fpsMax=60]            Tope de cuadros por segundo (menos = más liviano).
  */
 
 // Ondas que se cruzan: tres frentes planos en distintas direcciones, un anillo que se expande
@@ -83,6 +85,7 @@ uniform float uVinetaOscuridad;
 uniform float uVinetaInicio;
 uniform vec3 uColorBajo;
 uniform vec3 uColorAlto;
+uniform vec3 uColorFondo;
 uniform float uIntensidad;
 varying float vDistancia;
 varying vec3 vPos;
@@ -115,11 +118,11 @@ void main() {
   float altura = clamp(vPos.y / max(uIntensidad, 0.001) * 1.6 + 0.5, 0.0, 1.0);
   vec3 color = mix(uColorBajo, uColorAlto, smoothstep(0.0, 1.0, altura));
 
-  // Viñeta: con fondo negro y mezcla lineal, oscurecer cada punto equivale a una pasada de post-proceso.
+  // Viñeta: fundir cada punto hacia el color de fondo equivale a una pasada de post-proceso.
   vec2 uv = gl_FragCoord.xy / uRes * 2.0 - 1.0;
   float vineta = 1.0 - smoothstep(uVinetaInicio, uVinetaInicio + uVinetaOscuridad, dot(uv, uv));
 
-  gl_FragColor = vec4(color * vineta, clamp(alfa, 0.0, 1.0));
+  gl_FragColor = vec4(mix(uColorFondo, color, vineta), clamp(alfa, 0.0, 1.0));
 }`;
 
 function hexARgb(hex) {
@@ -163,13 +166,16 @@ function perspectiva(fov, aspecto, cerca, lejos) {
  * Dibuja la tela de partículas animada en el canvas.
  * @param {HTMLCanvasElement} canvas
  * @param {OpcionesOndas} [opciones]
- * @returns {{ detener: () => void, destellos: (activo: boolean) => void }}
+ * @returns {{ detener: () => void, destellos: (activo: boolean) => void, colores: (c: Colores) => void, pausar: (activo: boolean) => void }}
  *   `detener` libera todo; `destellos(true)` deja solo los puntos que brillan (ej. al pasar el
- *   mouse por un botón).
+ *   mouse por un botón); `colores` cambia la paleta (y la opacidad) con un fundido, sin reiniciar
+ *   la animación; `pausar(true)` congela la tela en el último cuadro.
+ *
+ * @typedef {{ bajo?: string, alto?: string, fondo?: string, opacidad?: number }} Colores
  */
 export function iniciarOndas(canvas, opciones = {}) {
   const gl = canvas.getContext('webgl', { antialias: false, alpha: false, premultipliedAlpha: false });
-  if (!gl) return { detener: () => {}, destellos: () => {} };
+  if (!gl) return { detener: () => {}, destellos: () => {}, colores: () => {}, pausar: () => {} };
 
   const {
     resolucion = 512,
@@ -179,12 +185,14 @@ export function iniciarOndas(canvas, opciones = {}) {
     intensidad = 0.62,
     colorBajo = '#a983f5',
     colorAlto = '#fff0f8',
+    colorFondo = '#000000',
     foco = 3.2,
     apertura = 1.79,
     tamano = 10,
     opacidad = 0.8,
     vinetaOscuridad = 1.5,
     vinetaInicio = 0.4,
+    fpsMax = 60,
   } = opciones;
 
   // --- Grilla en el plano XZ ---
@@ -211,70 +219,109 @@ export function iniciarOndas(canvas, opciones = {}) {
     [
       'uVista', 'uProyeccion', 'uTiempoRuido', 'uEscalaRuido', 'uIntensidad', 'uFoco', 'uApertura', 'uTamano',
       'uTiempo', 'uOpacidad', 'uRevelado', 'uProgreso', 'uDestellos', 'uRes', 'uVinetaOscuridad', 'uVinetaInicio',
-      'uColorBajo', 'uColorAlto',
+      'uColorBajo', 'uColorAlto', 'uColorFondo',
     ].map((nombre) => [nombre, gl.getUniformLocation(programa, nombre)]),
   );
 
   // Cámara fija, FOV 45, más baja y desde el otro lado del plano: se ven las ondas venir de frente.
   const fov = (45 * Math.PI) / 180;
   gl.uniformMatrix4fv(u.uVista, false, mirarAlOrigen([-1.45, 1.85, -1.95]));
-  gl.uniform3fv(u.uColorBajo, hexARgb(colorBajo));
-  gl.uniform3fv(u.uColorAlto, hexARgb(colorAlto));
+  // Paleta actual y destino: al cambiar de tema se funde de una a otra en cada cuadro.
+  const paleta = { bajo: hexARgb(colorBajo), alto: hexARgb(colorAlto), fondo: hexARgb(colorFondo) };
+  const paletaObjetivo = { bajo: [...paleta.bajo], alto: [...paleta.alto], fondo: [...paleta.fondo] };
+  let opacidadActual = opacidad;
+  let opacidadObjetivo = opacidad;
   gl.uniform1f(u.uEscalaRuido, escalaRuido);
   gl.uniform1f(u.uIntensidad, intensidad);
   gl.uniform1f(u.uFoco, foco);
   gl.uniform1f(u.uApertura, apertura);
   gl.uniform1f(u.uTamano, tamano);
-  gl.uniform1f(u.uOpacidad, opacidad);
   gl.uniform1f(u.uVinetaOscuridad, vinetaOscuridad);
   gl.uniform1f(u.uVinetaInicio, vinetaInicio);
 
   gl.disable(gl.DEPTH_TEST);
   gl.enable(gl.BLEND);
   gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-  gl.clearColor(0, 0, 0, 1);
-
-  // --- Tamaño ---
-  const redimensionar = () => {
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.max(1, Math.round(canvas.clientWidth * dpr));
-    canvas.height = Math.max(1, Math.round(canvas.clientHeight * dpr));
-    gl.viewport(0, 0, canvas.width, canvas.height);
-    gl.uniformMatrix4fv(u.uProyeccion, false, perspectiva(fov, canvas.width / canvas.height, 0.01, 300));
-    gl.uniform2f(u.uRes, canvas.width, canvas.height);
-  };
-  redimensionar();
-  const observador = new ResizeObserver(redimensionar);
-  observador.observe(canvas);
 
   const movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let destellosObjetivo = 0;
   let destellosActual = 0;
   let anterior = performance.now();
   let tiempo = 0;
+  let suave = 0;
   let raf = 0;
+  let pausado = false;
+  let pintado = false;
 
+  // Manda el estado actual a la GPU y dibuja un cuadro.
+  function pintar() {
+    gl.uniform3fv(u.uColorBajo, paleta.bajo);
+    gl.uniform3fv(u.uColorAlto, paleta.alto);
+    gl.uniform3fv(u.uColorFondo, paleta.fondo);
+    gl.uniform1f(u.uOpacidad, opacidadActual);
+    gl.clearColor(...paleta.fondo, 1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.uniform1f(u.uTiempo, tiempo);
+    gl.uniform1f(u.uTiempoRuido, tiempo * velocidad * ((2 * Math.PI) / 20));
+    // El revelado llega más allá del borde de la tela (radio 10·√2): al terminar no queda ningún
+    // borde recortado, solo el desvanecido natural por distancia y la viñeta.
+    gl.uniform1f(u.uRevelado, 15 * suave);
+    gl.uniform1f(u.uProgreso, suave);
+    gl.uniform1f(u.uDestellos, destellosActual);
+    gl.drawArrays(gl.POINTS, 0, n * n);
+    pintado = true;
+  }
+
+  // --- Tamaño ---
+  const redimensionar = () => {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const ancho = Math.max(1, Math.round(canvas.clientWidth * dpr));
+    const alto = Math.max(1, Math.round(canvas.clientHeight * dpr));
+    if (ancho === canvas.width && alto === canvas.height) return;
+    canvas.width = ancho;
+    canvas.height = alto;
+    gl.viewport(0, 0, ancho, alto);
+    gl.uniformMatrix4fv(u.uProyeccion, false, perspectiva(fov, ancho / alto, 0.01, 300));
+    gl.uniform2f(u.uRes, ancho, alto);
+    // Cambiar el tamaño borra el lienzo: se redibuja en el acto para que no parpadee.
+    if (pintado) pintar();
+  };
+  redimensionar();
+  const observador = new ResizeObserver(redimensionar);
+  observador.observe(canvas);
+
+  const asentado = () =>
+    Math.abs(destellosObjetivo - destellosActual) < 0.002 &&
+    Math.abs(opacidadObjetivo - opacidadActual) < 0.002 &&
+    Object.keys(paleta).every((c) => paleta[c].every((v, i) => Math.abs(v - paletaObjetivo[c][i]) < 0.002));
+
+  const intervaloMinimo = 1000 / fpsMax - 2;
   const dibujar = (ahora) => {
-    const dt = Math.min(0.05, Math.max(0, (ahora - anterior) / 1000));
+    raf = requestAnimationFrame(dibujar);
+    // Con tope de cuadros por segundo (modo liviano) se saltean los cuadros que llegan antes.
+    if (ahora - anterior < intervaloMinimo) return;
+    const dtReal = Math.max(0, (ahora - anterior) / 1000);
+    const dt = Math.min(0.05, dtReal);
     anterior = ahora;
+    // Sin movimiento, una vez que todo llegó a su valor no hace falta volver a dibujar lo mismo.
+    if (movimientoReducido && pintado && asentado()) return;
     if (!movimientoReducido) tiempo += dt;
 
     // Revelado de 3.5 s con salida cúbica (sin animación si se pidió menos movimiento).
     const avance = movimientoReducido ? 1 : Math.min(tiempo / 3.5, 1);
-    const suave = 1 - Math.pow(1 - avance, 3);
+    suave = 1 - Math.pow(1 - avance, 3);
     // Transición suave hacia/desde el modo destellos (más rápida al entrar que al salir).
     const tau = destellosObjetivo ? 0.35 : 0.2;
     destellosActual += (destellosObjetivo - destellosActual) * (1 - Math.exp(-dt / (tau / 3)));
+    // Fundido de paleta de ~0.5 s, igual que la transición de colores de la página. Usa el tiempo
+    // real (sin el tope de `dt`) para durar lo mismo aunque el equipo dibuje pocos cuadros.
+    const fundido = movimientoReducido ? 1 : 1 - Math.exp(-dtReal / (0.5 / 3));
+    for (const clave in paleta) {
+      paleta[clave] = paleta[clave].map((v, i) => v + (paletaObjetivo[clave][i] - v) * fundido);
+    }
+    opacidadActual += (opacidadObjetivo - opacidadActual) * fundido;
 
-    gl.clear(gl.COLOR_BUFFER_BIT);
-    gl.uniform1f(u.uTiempo, tiempo);
-    gl.uniform1f(u.uTiempoRuido, tiempo * velocidad * ((2 * Math.PI) / 20));
-    gl.uniform1f(u.uRevelado, 4 * suave);
-    gl.uniform1f(u.uProgreso, suave);
-    gl.uniform1f(u.uDestellos, destellosActual);
-    gl.drawArrays(gl.POINTS, 0, n * n);
-
-    raf = requestAnimationFrame(dibujar);
+    pintar();
   };
   raf = requestAnimationFrame(dibujar);
 
@@ -286,6 +333,30 @@ export function iniciarOndas(canvas, opciones = {}) {
     },
     destellos(activo) {
       destellosObjetivo = activo ? 1 : 0;
+    },
+    colores({ bajo, alto, fondo, opacidad: nuevaOpacidad }) {
+      if (bajo) paletaObjetivo.bajo = hexARgb(bajo);
+      if (alto) paletaObjetivo.alto = hexARgb(alto);
+      if (fondo) paletaObjetivo.fondo = hexARgb(fondo);
+      if (nuevaOpacidad !== undefined) opacidadObjetivo = nuevaOpacidad;
+      // En pausa no hay fundido: se aplica el cambio de una y se redibuja ese único cuadro.
+      if (pausado) {
+        for (const clave in paleta) paleta[clave] = [...paletaObjetivo[clave]];
+        opacidadActual = opacidadObjetivo;
+        pintar();
+      }
+    },
+    // Congela la tela en el último cuadro (no consume nada) o la reanuda desde ahí.
+    pausar(activo) {
+      if (activo === pausado) return;
+      pausado = activo;
+      if (activo) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else {
+        anterior = performance.now();
+        raf = requestAnimationFrame(dibujar);
+      }
     },
   };
 }
