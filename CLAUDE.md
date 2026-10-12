@@ -31,6 +31,8 @@ No hay tests. CI (`.github/workflows/audit.yml`) corre `npm audit --audit-level=
 
 Vercel Web Analytics se inyecta en `main.js`. Alias `@` → `src/`. Los PDFs de certificados están en `public/certificados/`.
 
+**CV.** `public/cv/CV_Aron_Rojas.pdf` es una copia del CV que se genera fuera de este repo, en `C:\proj\cv` (`node build-cv.js` → .docx, exportado a PDF con Word). Ese CV es la fuente de verdad del contenido. No lleva teléfono, a propósito. `index.html` tiene meta tags SEO/OG, JSON-LD (`Person`) y `public/og.jpg` (captura 1200×630 de la portada): actualizarlos si cambia el perfil.
+
 ## Convenciones
 
 - Commits en español con prefijo: `feat:`, `content:` (cambios de texto/datos del portafolio), `build:`, `ci:`.
