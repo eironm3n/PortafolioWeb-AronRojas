@@ -1,6 +1,5 @@
 <script setup>
 import linkedin from '/src/assets/linkedin_icon.svg';
-/*import instagram from '/src/assets/instagram_icon.svg';*/
 import github from '/src/assets/github_icon.svg';
 import email from '/src/assets/email_icon.svg';
 import { computed, ref } from 'vue';
