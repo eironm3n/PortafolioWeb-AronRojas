@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://portafolio-web-aron-rojas.vercel.app/sitemap.xml
