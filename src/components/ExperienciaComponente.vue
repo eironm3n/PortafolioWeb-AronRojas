@@ -6,7 +6,7 @@ import { ref } from 'vue';
 const experiencias = ref([
   {
     id: 1,
-    puesto: 'Analista de Soporte de Aplicaciones L2',
+    puesto: 'Soporte Técnico de Aplicaciones y Datos (L1/L2)',
     empresa: 'PeCOM — E&D HelpDesk (vía ReMASA)',
     periodo: 'Sep 2024 – Actualidad · Remoto',
     logros: [
@@ -35,7 +35,7 @@ const experiencias = ref([
   },
   {
     id: 3,
-    puesto: 'Analista de Soporte de Aplicaciones Jr.',
+    puesto: 'Soporte de Aplicaciones L1 · Trainee → Junior',
     empresa: 'YPF — CSG, Centro de Soluciones de Geociencia (vía ReMASA)',
     periodo: 'Nov 2021 – Sep 2024 · Remoto (usuarios de 6 países)',
     logros: [

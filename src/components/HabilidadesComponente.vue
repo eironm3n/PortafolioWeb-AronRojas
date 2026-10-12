@@ -25,6 +25,24 @@ import { ref } from 'vue';
 
 const habilidades = ref([
   {
+    id: 6, nombre: 'Soporte y Gestión del Servicio', habilidades: [
+      { id: 1, nombre: 'ServiceNow', nivel: 'Uso profesional', icono: null },
+      { id: 2, nombre: 'Jira / InVgate / Redmine', nivel: 'Uso profesional', icono: null },
+      { id: 3, nombre: 'SLA / gestión de incidencias', nivel: 'Aplicado', icono: null },
+      { id: 4, nombre: 'Homologación de aplicaciones', nivel: 'Aplicado', icono: null },
+      { id: 5, nombre: 'Documentación y base de conocimiento', nivel: 'Aplicado', icono: null },
+    ],
+  },
+  {
+    id: 8, nombre: 'Aplicaciones de Geociencia', habilidades: [
+      { id: 1, nombre: 'Petrel y suite SLB (Studio, Ocean, Visage, Intersect)', nivel: 'Soporte L1/L2', icono: null },
+      { id: 2, nombre: 'tNavigator', nivel: 'Soporte L1/L2', icono: null },
+      { id: 3, nombre: 'CMG', nivel: 'Soporte L1/L2', icono: null },
+      { id: 4, nombre: 'Paradigm / Geolog', nivel: 'Soporte L1/L2', icono: null },
+      { id: 5, nombre: 'Sahara / QGIS', nivel: 'Soporte L1/L2', icono: null },
+    ],
+  },
+  {
     id: 1, nombre: 'Cloud', habilidades: [
       { id: 1, nombre: 'AWS (EC2, instancias GPU)', nivel: 'Uso profesional', icono: iconAws },
       { id: 2, nombre: 'Microsoft Azure (VMs, VDIs)', nivel: 'Uso profesional · curso AZ-900', icono: iconAzure },
@@ -33,9 +51,9 @@ const habilidades = ref([
   },
   {
     id: 2, nombre: 'Infraestructura y Sistemas', habilidades: [
-      { id: 1, nombre: 'Linux (Red Hat, Debian, Arch)', nivel: 'Avanzado', icono: iconLinux },
-      { id: 2, nombre: 'Windows Server', nivel: 'Uso profesional', icono: null },
-      { id: 3, nombre: 'Administración de sistemas', nivel: 'Avanzado', icono: null },
+      { id: 1, nombre: 'Linux (Red Hat, Debian)', nivel: 'Uso profesional', icono: iconLinux },
+      { id: 2, nombre: 'Windows Server 2016 / 2022', nivel: 'Uso profesional', icono: null },
+      { id: 3, nombre: 'Administración de sistemas', nivel: 'Uso profesional', icono: null },
       { id: 4, nombre: 'RDP / VNC / Citrix', nivel: 'Uso profesional', icono: null },
     ],
   },
@@ -43,7 +61,7 @@ const habilidades = ref([
     id: 3, nombre: 'Contenedores y Automatización', habilidades: [
       { id: 1, nombre: 'Docker', nivel: 'Intermedio', icono: iconDocker },
       { id: 2, nombre: 'Kubernetes', nivel: 'Fundamentos', icono: iconK8s },
-      { id: 3, nombre: 'Bash scripting', nivel: 'Avanzado', icono: iconBash },
+      { id: 3, nombre: 'Bash scripting', nivel: 'Intermedio', icono: iconBash },
       { id: 4, nombre: 'PowerShell', nivel: 'Uso profesional', icono: iconPowershell },
       { id: 5, nombre: 'n8n', nivel: 'Intermedio', icono: iconN8n },
     ],
@@ -65,14 +83,6 @@ const habilidades = ref([
       { id: 6, nombre: 'Node.js', nivel: 'Básico', icono: iconNode },
       { id: 7, nombre: 'PostgreSQL', nivel: 'Intermedio', icono: iconPostgres },
       { id: 8, nombre: 'MySQL', nivel: 'Intermedio', icono: iconMysql },
-    ],
-  },
-  {
-    id: 6, nombre: 'Soporte y Gestión del Servicio', habilidades: [
-      { id: 1, nombre: 'ServiceNow', nivel: 'Uso profesional', icono: null },
-      { id: 2, nombre: 'Jira / InVgate / Redmine', nivel: 'Uso profesional', icono: null },
-      { id: 3, nombre: 'SLA / gestión de incidencias', nivel: 'Aplicado', icono: null },
-      { id: 4, nombre: 'Homologación de aplicaciones', nivel: 'Aplicado', icono: null },
     ],
   },
   {
