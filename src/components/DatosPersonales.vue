@@ -21,7 +21,7 @@ const redesSociales = [
   { id: 3, name: 'GitHub', src: github, url: 'https://github.com/eironm3n', externo: true },
   { id: 4, name: 'Email: c1.aronrojas@gmail.com', src: email, url: 'mailto:c1.aronrojas@gmail.com', externo: false },
 ];
-// Versión web del CV, sin teléfono: se genera en el repo del CV con `node build-cv.js --web` y se copia acá.
+// Copia del CV que genera C:/proj/cv (build-cv.js + exportado a PDF). Sin teléfono a propósito.
 const cv = '/cv/CV_Aron_Rojas.pdf';
 
 // Modo liviano (celulares, tablets, ahorro de datos o equipos con poca memoria): grilla de ~37k
