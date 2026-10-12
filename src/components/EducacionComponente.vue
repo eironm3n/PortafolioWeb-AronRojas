@@ -1,15 +1,13 @@
 <script setup>
 import { ref } from 'vue';
-const fechaColor = ref([]);
-/*Esta es otra forma de utilizar el arreglo, con el metodo value*/
-fechaColor.value = [
+// Color de la etiqueta de fecha de cada hito, en orden.
+const fechaColor = [
   {color: '#41516c'},
   {color: '#FBCA3E', texto: '#1e1e1e'},
   {color: '#E24A68'},
   {color: '#1B5F8C'},
   {color: '#4CADAD'}
 ];
-/*Esta es la forma de utilizar el arreglo, sin el metodo value*/
 const educacion = ref([
   {fecha: '2025', title: 'Técnico Universitario en Programación', descripcion: 'UTN — Facultad Regional San Rafael. Cursada finalizada en diciembre de 2025; prácticas profesionalizantes realizadas en ReMASA (feb – jun 2026); título en trámite. Incumbencias: desarrollo en distintos lenguajes, análisis y control de sistemas informáticos, operación y programación de computadoras.', enlace:'https://www.frsr.utn.edu.ar/'},
   {fecha: '2024', title: 'Inicio de la Tecnicatura Universitaria en Programación', descripcion: 'Comienzo de la carrera en la UTN FRSR bajo modalidad a distancia sincrónica, en paralelo a la actividad laboral en soporte de aplicaciones e infraestructura.', enlace:'https://www.frsr.utn.edu.ar/'},

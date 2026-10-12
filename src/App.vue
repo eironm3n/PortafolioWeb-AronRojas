@@ -4,6 +4,7 @@ import BarraProgreso from './components/BarraProgreso.vue';
 import DatosPersonales from './components/DatosPersonales.vue';
 import LegajoPanel from './components/legajo/LegajoPanel.vue';
 import BotonTema from './components/tema/BotonTema.vue';
+import { activa } from './components/legajo/legajo.js';
 </script>
 
 <template>
@@ -11,10 +12,12 @@ import BotonTema from './components/tema/BotonTema.vue';
     <NavBar />
     <main>
         <!-- Portada; las secciones están guardadas en las solapas de la barra. -->
-        <DatosPersonales />
+        <!-- Con una hoja abierta, lo que queda tapado detrás no recibe foco ni lo leen los lectores
+             de pantalla: el Tab recorre solo las solapas, la hoja y sus controles. -->
+        <DatosPersonales :inert="Boolean(activa)" />
         <LegajoPanel />
     </main>
-    <footer>
+    <footer :inert="Boolean(activa)">
         <p>© 2026 Arón Rojas — Portafolio</p>
         <!-- En pantallas angostas el botón de tema vive acá, para que las solapas queden parejas arriba. -->
         <BotonTema class="tema-pie" />

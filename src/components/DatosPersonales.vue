@@ -1,7 +1,7 @@
 <script setup>
 import linkedin from '/src/assets/linkedin_icon.svg';
-/*import instagram from '/src/assets/instagram_icon.svg';*/
 import github from '/src/assets/github_icon.svg';
+import email from '/src/assets/email_icon.svg';
 import { computed, ref } from 'vue';
 import FondoOndas from './ondas/FondoOndas.vue';
 import TextoSplit from './texto-split/TextoSplit.vue';
@@ -11,13 +11,17 @@ import { abrir, activa } from './legajo/legajo.js';
 import { liviano } from './ondas/liviano.js';
 
 const title = 'Arón Rojas';
-const descripcion = 'Infraestructura Cloud · Automatización · Datos';
+const descripcion = 'Especialista en Soporte de Aplicaciones';
+const especialidades = 'Cloud (AWS/Azure) · Automatización · Geociencia / Oil & Gas';
 const residencia = 'Mendoza, Argentina · Trabajo remoto';
-const presentacion = 'Analista de Soporte de Aplicaciones L2 con casi cinco años de experiencia en entornos críticos de cómputo intensivo (cloud y GPU) para YPF y PeCOM. Trabajo con infraestructura cloud, contenedores y automatización en Python y PowerShell. Completé la Tecnicatura Universitaria en Programación en la UTN (título en trámite).';
+const presentacion = 'Casi cinco años de soporte L1 y L2 en entornos críticos de cómputo intensivo del sector energético, para geólogos, ingenieros de reservorios y equipos de exploración de YPF y PeCOM; empecé como Trainee y hoy soy referente L2. Sumo infraestructura en AWS y Azure, Windows Server con PowerShell y automatización con Python e IA. Técnico Universitario en Programación (UTN, título en trámite).';
 const redesSociales = [
-  { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/' },
-  { id: 3, name: 'GitHub', src: github, url: 'https://github.com/eironm3n' },
+  { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/', externo: true },
+  { id: 3, name: 'GitHub', src: github, url: 'https://github.com/eironm3n', externo: true },
+  { id: 4, name: 'Email: c1.aronrojas@gmail.com', src: email, url: 'mailto:c1.aronrojas@gmail.com', externo: false },
 ];
+// Copia del CV que genera C:/proj/cv (build-cv.js + exportado a PDF). Sin teléfono a propósito.
+const cv = '/cv/CV_Aron_Rojas.pdf';
 
 // Modo liviano (celulares, tablets, ahorro de datos o equipos con poca memoria): grilla de ~37k
 // puntos en vez de 262k y como mucho 30 cuadros por segundo. Además, con una hoja abierta la tela
@@ -47,15 +51,20 @@ function entrarRed(evento) {
       <div class="card">
         <TextoSplit class="nombre" :texto="title" />
         <h2>{{ descripcion }}</h2>
+        <p class="especialidades">{{ especialidades }}</p>
         <p class="presentacion">{{ presentacion }}</p>
         <div class="acciones">
           <!-- Acción principal: abre la primera hoja desde su solapa y enseña cómo se usa el sitio. -->
           <button type="button" class="boton-principal" @click="abrir('experiencia')">
             Ver experiencia <span aria-hidden="true">→</span>
           </button>
+          <a class="boton-secundario" :href="cv" download="CV_Aron_Rojas.pdf">
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            Descargar CV <span class="formato">(PDF)</span>
+          </a>
           <ul class="container-lista">
             <li v-for="red in redesSociales" :key="red.id">
-              <a :href="red.url" target="_blank" rel="noopener noreferrer" :aria-label="`${red.name} (se abre en otra pestaña)`" :title="red.name" @mouseenter="entrarRed" @mouseleave="sobreRed = false" @focus="entrarRed" @blur="sobreRed = false">
+              <a :href="red.url" :target="red.externo ? '_blank' : null" :rel="red.externo ? 'noopener noreferrer' : null" :aria-label="red.externo ? `${red.name} (se abre en otra pestaña)` : red.name" :title="red.name" @mouseenter="entrarRed" @mouseleave="sobreRed = false" @focus="entrarRed" @blur="sobreRed = false">
                 <img class="icon-redsocial" :src="red.src" width="36" height="36" alt="">
               </a>
             </li>
@@ -84,7 +93,16 @@ function entrarRed(evento) {
 .card h2 {
   font-size: 1.5rem;
   color: var(--color-hero-titulo);
-  margin-bottom: 1rem;
+  margin-bottom: 0.2rem;
+}
+
+/* Segunda línea del título: en qué se apoya la especialidad. */
+.especialidades {
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  color: var(--color-hero-titulo);
+  opacity: 0.85;
+  margin: 0 0 1rem;
 }
 
 .presentacion {
@@ -165,6 +183,46 @@ function entrarRed(evento) {
   transform: translateY(0) scale(0.98);
 }
 
+/* Acción secundaria: misma forma que la principal, pero con borde en vez de relleno. */
+.boton-secundario {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 44px;
+  padding: 0.6rem 1.25rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--color-acento);
+  background: transparent;
+  border: 2px solid var(--color-acento);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: transform 0.2s, background-color 0.2s, color 0.2s;
+}
+
+.boton-secundario .formato {
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.boton-secundario:hover {
+  transform: translateY(-1px);
+  color: var(--color-sobre-acento);
+  background: var(--color-acento);
+}
+
+.boton-secundario:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.boton-secundario svg {
+  transition: transform 0.2s;
+}
+
+.boton-secundario:hover svg {
+  transform: translateY(2px);
+}
+
 .container-lista {
   display: flex;
   gap: 0.5rem;
@@ -222,6 +280,11 @@ function entrarRed(evento) {
 
   .card h2 {
     font-size: 1.2rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .especialidades {
+    font-size: 0.9rem;
     margin-bottom: 0.75rem;
   }
 
@@ -243,6 +306,11 @@ function entrarRed(evento) {
 
   .card h2 {
     font-size: 1.05rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .especialidades {
+    font-size: 0.85rem;
     margin-bottom: 0.5rem;
   }
 
