@@ -15,10 +15,11 @@ No hay tests. CI (`.github/workflows/audit.yml`) corre `npm audit --audit-level=
 
 ## Arquitectura
 
-**Una sola pantalla con "legajo de solapas".** No hay router. `App.vue` muestra la portada (`DatosPersonales.vue`) y `LegajoPanel.vue`. Cada sección (experiencia, habilidades, certificaciones, proyectos, educación, intereses) es una "hoja" guardada en una solapa de `NavBar.vue` que se abre como panel.
+**Una sola pantalla con "legajo de solapas".** No hay router. `App.vue` muestra la portada (`DatosPersonales.vue`) y `LegajoPanel.vue`. Cada sección (experiencia, habilidades, certificaciones, proyectos, educación, intereses) es una "hoja" guardada en una solapa de `NavBar.vue` que se abre como panel. La portada es un bento de mosaicos (identidad, cifras, stack, pipeline de shortlink-service…): cada mosaico abre su hoja con `abrir(id, elementoMosaico)` y la hoja sale de ese mosaico y vuelve a él.
 
 - `src/components/legajo/legajo.js` es el estado compartido a nivel de módulo (refs de Vue, sin Pinia): la lista `hojas`, la hoja `activa`, el `progreso` de lectura (lo muestra `BarraProgreso.vue`) y `abrir`/`cerrar`/`alternar`/`hojear`. La hoja abierta se refleja en el hash (`#proyectos`) con `history.replaceState`, y un `hashchange` manual también abre su hoja.
-- `LegajoPanel.vue` carga cada componente de sección con `defineAsyncComponent` (mapa `cargadores`) y los precarga en `requestIdleCallback`. Anima la apertura/cierre con la Web Animations API usando `clip-path` medido desde la solapa (`.pestana[data-hoja="…"]`) y respeta `prefers-reduced-motion`.
+- Estilos comunes de las hojas (tarjeta, chips, grilla, línea de tiempo, `.meta`) en `src/assets/hojas.css`, con tokens de `base.css` (`--color-chip-*`, `--sombra-*`, `--radio`, `--fuente-mono`). Las hojas nuevas deberían usarlos.
+- `LegajoPanel.vue` carga cada componente de sección con `defineAsyncComponent` (mapa `cargadores`) y los precarga en `requestIdleCallback`. Anima la apertura/cierre con la Web Animations API usando `clip-path` medido desde la solapa (`.pestana[data-hoja="…"]`) o desde el mosaico de origen (`origen` en `legajo.js`) y respeta `prefers-reduced-motion`.
 - **Para agregar una sección** hay que tocarla en dos lugares: `hojas` en `legajo.js` y `cargadores` en `LegajoPanel.vue`.
 
 **Tema claro/oscuro.** `components/tema/tema.js` sigue al sistema hasta que el usuario elige con `BotonTema`; la elección se guarda en `localStorage('tema')` y se aplica como `data-tema="claro|oscuro"` en `<html>`. Un script inline en `index.html` lo aplica antes del primer pintado (evita el destello). Los colores son variables CSS semánticas en `src/assets/base.css`; usar esas variables (`--color-heading`, `--color-texto-suave`, etc.) en vez de colores fijos.

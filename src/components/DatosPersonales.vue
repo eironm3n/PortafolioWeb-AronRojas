@@ -16,7 +16,8 @@ import iconGit from '/src/components/icons/git.svg';
 import iconBash from '/src/components/icons/bash.svg';
 import iconSql from '/src/components/icons/sql.svg';
 import iconVue from '/src/components/icons/vue.svg';
-import { computed, ref } from 'vue';
+import { gsap } from 'gsap';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import FondoOndas from './ondas/FondoOndas.vue';
 import TextoSplit from './texto-split/TextoSplit.vue';
 import { reproducir } from './micro-css/micro.js';
@@ -57,19 +58,70 @@ const stack = [
 ];
 const intereses = ['Homelab y self-hosting', 'IA aplicada', 'Infraestructura reproducible', 'Boxeo', 'Alta montaña'];
 const geociencia = ['Petrel', 'Studio', 'Intersect', 'Visage', 'tNavigator', 'CMG', 'Paradigm', 'Geolog', 'Sahara', 'QGIS'];
-// Etapas reales del pipeline de shortlink-service (ver la hoja Proyectos).
-const pipeline = ['ruff', 'mypy', 'pytest 95%', 'build', 'Trivy', 'smoke', 'GHCR'];
+// Etapas reales del pipeline de shortlink-service (ver la hoja Proyectos), con qué valida cada una.
+const pipeline = [
+  { nombre: 'ruff', valida: 'Linter de Python: estilo y errores comunes, antes que todo lo demás.' },
+  { nombre: 'mypy', valida: 'Chequeo estático de tipos.' },
+  { nombre: 'pytest 95%', valida: 'Tests automatizados, con 95% de cobertura.' },
+  { nombre: 'build', valida: 'Imagen Docker multi-stage que corre sin usuario root.' },
+  { nombre: 'Trivy', valida: 'Escaneo de vulnerabilidades de la imagen.' },
+  { nombre: 'smoke', valida: 'Levanta el contenedor y prueba que responda.' },
+  { nombre: 'GHCR', valida: 'Publica la imagen en GitHub Container Registry.' },
+];
+// Etapa elegida con un click: frena el recorrido automático y muestra qué valida.
+const etapa = ref(null);
+const elegirEtapa = (i) => (etapa.value = etapa.value === i ? null : i);
 
 // Ver la portada de main: modo liviano en celulares y tela congelada con una hoja abierta.
 const resolucion = liviano ? 192 : 512;
 const fpsMax = liviano ? 30 : 60;
 const pausado = computed(() => liviano && Boolean(activa.value));
 // Detrás de los mosaicos la tela va más tenue: es ambiente, no protagonista.
+// Al pasar por un mosaico la tela "despierta": recupera la paleta intensa de la portada original.
 const paletas = {
   oscuro: { bajo: '#173f6e', alto: '#4f9fd8', fondo: '#000000', opacidad: 0.7 },
   claro: { bajo: '#ff8cc4', alto: '#c2116e', fondo: '#fff4f9', opacidad: 0.6 },
 };
-const paleta = computed(() => paletas[tema.value]);
+const despiertas = {
+  oscuro: { bajo: '#1f5fa8', alto: '#8fd3ff', fondo: '#000000', opacidad: 1 },
+  claro: { bajo: '#ff1f8f', alto: '#a8005a', fondo: '#fff4f9', opacidad: 1 },
+};
+const despierta = ref(false);
+// Solo despiertan los mosaicos que abren una hoja (la identidad no).
+const despertar = (evento) => (despierta.value = Boolean(evento.target.closest('.mosaico')?.querySelector('.abrir')));
+const paleta = computed(() => (despierta.value ? despiertas : paletas)[tema.value]);
+
+// El mosaico clickeado es el origen de la hoja: sale de él y vuelve a él al guardarse.
+const abrirDesde = (id, evento) => abrir(id, evento.currentTarget.closest('.mosaico'));
+
+// Las cifras cuentan desde cero la primera vez que aparecen en pantalla. En el HTML ya está el
+// valor final y el 0 se pone recién al arrancar: si la animación no llega a correr (sin
+// JavaScript, movimiento reducido), se ve el valor correcto.
+const bento = ref(null);
+let observador;
+onMounted(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  observador = new IntersectionObserver(
+    (entradas) => {
+      for (const { isIntersecting, target } of entradas) {
+        if (!isIntersecting) continue;
+        observador.unobserve(target);
+        const hasta = Number(target.dataset.hasta);
+        const cuenta = { valor: 0 };
+        gsap.to(cuenta, {
+          valor: hasta,
+          duration: 1.6,
+          ease: 'power2.out',
+          onUpdate: () => (target.textContent = Math.round(cuenta.valor)),
+          onComplete: () => (target.textContent = hasta),
+        });
+      }
+    },
+    { threshold: 0.6 },
+  );
+  for (const el of bento.value.querySelectorAll('.cuenta')) observador.observe(el);
+});
+onBeforeUnmount(() => observador?.disconnect());
 const sobreRed = ref(false);
 
 function entrarRed(evento) {
@@ -81,7 +133,7 @@ function entrarRed(evento) {
 <template>
   <section class="datos-personales">
     <FondoOndas class="hero-ondas" :resolucion="resolucion" :color-bajo="paleta.bajo" :color-alto="paleta.alto" :color-fondo="paleta.fondo" :opacidad="paleta.opacidad" :destellos="sobreRed" :fps-max="fpsMax" :pausado="pausado" fijo>
-      <div class="bento">
+      <div ref="bento" class="bento" @mouseover="despertar" @mouseleave="despierta = false" @focusin="despertar" @focusout="despierta = false">
         <!-- Identidad: el único mosaico que no abre una hoja; tiene sus propias acciones. -->
         <article class="mosaico identidad">
           <p class="etiqueta"><span class="punto" aria-hidden="true"></span>{{ residencia }}</p>
@@ -106,16 +158,16 @@ function entrarRed(evento) {
 
         <article class="mosaico cifra">
           <p class="etiqueta">experiencia</p>
-          <p class="valor">5<span> años</span></p>
+          <p class="valor"><span class="cuenta" data-hasta="5">5</span><span> años</span></p>
           <p class="detalle">Soporte L1 / L2 para el sector energético</p>
-          <button type="button" class="abrir" aria-label="Abrir Experiencia" @click="abrir('experiencia')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Experiencia" @click="abrirDesde('experiencia', $event)"></button>
         </article>
 
         <article class="mosaico cifra">
           <p class="etiqueta">alcance</p>
-          <p class="valor">6<span> países</span></p>
+          <p class="valor"><span class="cuenta" data-hasta="6">6</span><span> países</span></p>
           <p class="detalle">Usuarios atendidos en YPF, bajo SLA</p>
-          <button type="button" class="abrir" aria-label="Abrir Experiencia" @click="abrir('experiencia')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Experiencia" @click="abrirDesde('experiencia', $event)"></button>
         </article>
 
         <article class="mosaico ahora">
@@ -125,7 +177,7 @@ function entrarRed(evento) {
             <li><strong>Equipo de desarrollo interno</strong> de ReMASA <span class="meta">desde feb 2026</span></li>
           </ul>
           <span class="ir" aria-hidden="true">Experiencia →</span>
-          <button type="button" class="abrir" aria-label="Abrir Experiencia" @click="abrir('experiencia')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Experiencia" @click="abrirDesde('experiencia', $event)"></button>
         </article>
 
         <article class="mosaico stack">
@@ -137,18 +189,25 @@ function entrarRed(evento) {
             </ul>
           </div>
           <span class="ir" aria-hidden="true">Habilidades →</span>
-          <button type="button" class="abrir" aria-label="Abrir Habilidades" @click="abrir('habilidades')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Habilidades" @click="abrirDesde('habilidades', $event)"></button>
         </article>
 
         <article class="mosaico proyecto">
           <p class="etiqueta">proyecto destacado</p>
           <h3>shortlink-service</h3>
           <p class="detalle">FastAPI con CI/CD, observabilidad e IaC de punta a punta.</p>
-          <ol class="pipeline" aria-label="Etapas del pipeline">
-            <li v-for="(etapa, i) in pipeline" :key="etapa" :style="{ '--i': i }">{{ etapa }}</li>
+          <!-- Las etapas son botones por encima del que abre la hoja: muestran qué valida cada una. -->
+          <ol class="pipeline" :class="{ detenido: etapa !== null }" aria-label="Etapas del pipeline">
+            <li v-for="(e, i) in pipeline" :key="e.nombre" :style="{ '--i': i }" :class="{ elegida: etapa === i }">
+              <button type="button" :aria-pressed="etapa === i" @click="elegirEtapa(i)">{{ e.nombre }}</button>
+            </li>
           </ol>
+          <p class="explicacion" aria-live="polite">
+            <template v-if="etapa !== null"><strong>{{ pipeline[etapa].nombre }}:</strong> {{ pipeline[etapa].valida }}</template>
+            <template v-else>Tocá una etapa para ver qué valida.</template>
+          </p>
           <span class="ir" aria-hidden="true">Proyectos →</span>
-          <button type="button" class="abrir" aria-label="Abrir Proyectos" @click="abrir('proyectos')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Proyectos" @click="abrirDesde('proyectos', $event)"></button>
         </article>
 
         <article class="mosaico geo">
@@ -157,21 +216,21 @@ function entrarRed(evento) {
             <li v-for="app in geociencia" :key="app" class="chip">{{ app }}</li>
           </ul>
           <span class="ir" aria-hidden="true">Habilidades →</span>
-          <button type="button" class="abrir" aria-label="Abrir Habilidades" @click="abrir('habilidades')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Habilidades" @click="abrirDesde('habilidades', $event)"></button>
         </article>
 
         <article class="mosaico cifra">
           <p class="etiqueta">certificaciones</p>
-          <p class="valor">12</p>
+          <p class="valor"><span class="cuenta" data-hasta="12">12</span></p>
           <p class="detalle">Google Cloud, Azure, Kubernetes, Linux, IA</p>
-          <button type="button" class="abrir" aria-label="Abrir Certificaciones" @click="abrir('certificaciones')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Certificaciones" @click="abrirDesde('certificaciones', $event)"></button>
         </article>
 
         <article class="mosaico cifra">
           <p class="etiqueta">educación</p>
           <p class="valor chico">UTN</p>
           <p class="detalle">Técnico Universitario en Programación</p>
-          <button type="button" class="abrir" aria-label="Abrir Educación" @click="abrir('educacion')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Educación" @click="abrirDesde('educacion', $event)"></button>
         </article>
 
         <article class="mosaico intereses">
@@ -180,7 +239,7 @@ function entrarRed(evento) {
             <li v-for="interes in intereses" :key="interes" class="chip">{{ interes }}</li>
           </ul>
           <span class="ir" aria-hidden="true">Intereses →</span>
-          <button type="button" class="abrir" aria-label="Abrir Intereses" @click="abrir('intereses')"></button>
+          <button type="button" class="abrir" aria-label="Abrir Intereses" @click="abrirDesde('intereses', $event)"></button>
         </article>
       </div>
     </FondoOndas>
@@ -398,7 +457,11 @@ function entrarRed(evento) {
   color: var(--color-hero-nombre);
 }
 
-.valor span {
+.cuenta {
+  font-variant-numeric: tabular-nums;
+}
+
+.valor span:not(.cuenta) {
   font-size: 1.3rem;
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -490,17 +553,62 @@ function entrarRed(evento) {
 }
 
 .pipeline li {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  padding: 0.35rem 0.7rem;
+  position: relative;
+  z-index: 1;
   border-radius: 8px;
   background: var(--color-superficie-2);
   border: 1px solid var(--color-superficie-borde);
   animation: etapa 7s calc(var(--i) * 0.6s) infinite both;
+  transition: border-color 0.2s, opacity 0.2s, transform 0.2s;
 }
 
-.pipeline li::before {
+.pipeline button {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: 100%;
+  padding: 0.35rem 0.7rem;
+  font: inherit;
+  text-align: left;
+  color: var(--color-text);
+  background: none;
+  border: none;
+  border-radius: inherit;
+  cursor: pointer;
+}
+
+.pipeline li:hover {
+  border-color: color-mix(in srgb, var(--color-acento) 50%, transparent);
+  transform: translateX(3px);
+}
+
+/* Con una etapa elegida se frena el recorrido y queda resaltada solo esa. */
+.pipeline.detenido li {
+  animation: none;
+  opacity: 0.45;
+}
+
+.pipeline.detenido li.elegida {
+  opacity: 1;
+  border-color: var(--color-acento);
+}
+
+.explicacion {
+  position: relative;
+  z-index: 1;
+  min-height: 2.9em;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: var(--color-texto-suave);
+}
+
+.explicacion strong {
+  font-family: var(--fuente-mono);
+  font-weight: 500;
+  color: var(--color-acento);
+}
+
+.pipeline button::before {
   content: '✓';
   display: grid;
   place-items: center;

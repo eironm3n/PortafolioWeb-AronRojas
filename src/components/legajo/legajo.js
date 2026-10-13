@@ -26,8 +26,13 @@ function reflejarEnDireccion(id) {
   history.replaceState(null, '', id ? `#${id}` : location.pathname + location.search);
 }
 
-export function abrir(id) {
+// Desde dónde sale la hoja: por defecto de su solapa, pero también puede salir de otro elemento
+// (un mosaico de la portada) y volver a guardarse en él. Solo vale para esa hoja.
+export let origen = null;
+
+export function abrir(id, desde) {
   if (indiceDe(id) < 0 || id === activa.value) return;
+  origen = desde ? { id, el: desde } : null;
   activa.value = id;
   reflejarEnDireccion(id);
 }
