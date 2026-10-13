@@ -1,13 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-// Color de la etiqueta de fecha de cada hito, en orden.
-const fechaColor = [
-  {color: '#41516c'},
-  {color: '#FBCA3E', texto: '#1e1e1e'},
-  {color: '#E24A68'},
-  {color: '#1B5F8C'},
-  {color: '#4CADAD'}
-];
 const educacion = ref([
   {fecha: '2025', title: 'Técnico Universitario en Programación', descripcion: 'UTN — Facultad Regional San Rafael. Cursada finalizada en diciembre de 2025; prácticas profesionalizantes realizadas en ReMASA (feb – jun 2026). Incumbencias: desarrollo en distintos lenguajes, análisis y control de sistemas informáticos, operación y programación de computadoras.', enlace:'https://www.frsr.utn.edu.ar/'},
   {fecha: '2024', title: 'Inicio de la Tecnicatura Universitaria en Programación', descripcion: 'Comienzo de la carrera en la UTN FRSR bajo modalidad a distancia sincrónica, en paralelo a la actividad laboral en soporte de aplicaciones e infraestructura.', enlace:'https://www.frsr.utn.edu.ar/'},
@@ -16,193 +8,49 @@ const educacion = ref([
 </script>
 
 <template>
-    <ul>
-        <li v-for="(item, index) in educacion" :key="index" v-aparecer="index % 2 ? 'derecha' : 'izquierda'" :style="{ '--fecha-color': fechaColor[index].color, '--fecha-texto': fechaColor[index].texto }">
-        <div class="fecha">{{ item.fecha }}</div>
-        <h3 class="title">{{ item.title }}</h3>
-        <div class="descripcion">{{ item.descripcion }}</div>
-        <a class="enlace" :href="item.enlace" target="_blank" rel="noopener noreferrer">Saber más</a>
+  <ol class="linea-tiempo">
+    <li v-for="(item, index) in educacion" :key="index" v-aparecer="'subir'" :class="{ actual: index === 0 }">
+      <article class="tarjeta">
+        <p class="meta">{{ item.fecha }}</p>
+        <h3>{{ item.title }}</h3>
+        <p class="descripcion">{{ item.descripcion }}</p>
+        <a class="enlace" :href="item.enlace" target="_blank" rel="noopener noreferrer">Saber más ↗</a>
+      </article>
     </li>
-    </ul>
+  </ol>
 </template>
 
 <style scoped>
-/* Estilos generales */
-*,
-*::before,
-*::after {
-  margin: 0; 
-  padding: 0; 
-  box-sizing: border-box; 
+.linea-tiempo {
+  max-width: 820px;
+  margin: 0 auto;
 }
 
-/* Estilos para la lista */
-ul {
-    margin-top: 2rem;
-  --col-gap: 2rem; 
-  --row-gap: 2rem;
-  --line-w: 0.25rem;
-  display: grid; 
-  grid-template-columns: var(--line-w) 1fr; 
-  grid-auto-columns: max-content; 
-  column-gap: var(--col-gap); 
-  list-style: none; 
-  width: min(60rem, 90%);
-  margin-inline: auto;
+.tarjeta {
+  padding: 1.25rem 1.5rem;
 }
 
-/* Estilo para la línea vertical que conecta los elementos de la lista */
-ul::before {
-  content: "";
-  grid-column: 1; 
-  grid-row: 1 / span 20; 
-  background: rgb(225, 225, 225); 
-  border-radius: calc(var(--line-w) / 2); 
+h3 {
+  margin: 0.2rem 0 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--color-puesto);
 }
 
-ul li:not(:last-child) {
-  margin-bottom: var(--row-gap);
+.descripcion {
+  font-size: 0.97rem;
 }
 
-/* Estilo para cada ítem de la lista */
-ul li {
-  grid-column: 2;
-  --inlineP: 1.5rem;
-  margin-inline: var(--inlineP);
-  grid-row: span 2;
-  display: grid;
-  grid-template-rows: min-content min-content min-content;
+.enlace {
+  display: inline-block;
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-acento);
 }
 
-/* Estilo para la fecha dentro de cada ítem */
-ul li .fecha {
-  --dateH: 3rem;
-  height: var(--dateH);
-  margin-inline: calc(var(--inlineP) * -1);
-  text-align: center;
-  background-color: var(--fecha-color);
-  color: var(--fecha-texto, white); /* el amarillo lleva texto oscuro para que se lea */
-  font-size: 1.25rem;
-  font-weight: 700;
-  display: grid;
-  place-content: center;
-  position: relative;
-  border-radius: calc(var(--dateH) / 2) 0 0 calc(var(--dateH) / 2);
-}
-
-/* Estilo para la parte inferior de la fecha, que parece un triángulo */
-ul li .fecha::before {
-  content: ""; 
-  width: var(--inlineP); 
-  aspect-ratio: 1; 
-  background: var(--fecha-color); 
-  background-image: linear-gradient(rgba(0, 0, 0, 0.2) 100%, transparent); 
-  position: absolute; 
-  top: 100%; 
-  clip-path: polygon(0 0, 100% 0, 0 100%); 
-  right: 0; 
-}
-
-/* Estilo para el círculo que conecta la fecha con la línea */
-ul li .fecha::after {
-  content: ""; 
-  position: absolute; 
-  width: 1rem; 
-  aspect-ratio: 1; 
-  background: var(--bgColor); 
-  border: 0.3rem solid var(--fecha-color); 
-  border-radius: 50%; 
-  top: 50%; 
-  transform: translate(50%, -50%); 
-  right: calc(100% + var(--col-gap) + var(--line-w) / 2); 
-}
-
-/* Estilos para el título y la descripción dentro de cada ítem */
-ul li .title,
-ul li .descripcion {
-  background: var(--bgColor); 
-  position: relative; 
-  padding-inline: 1.5rem;
-}
-
-ul li .title {
-  overflow: hidden; 
-  padding-block-start: 1.5rem; 
-  padding-block-end: 1rem; 
-  font-weight: 500; 
-}
-
-ul li .descripcion {
-  padding-block-end: 1.5rem; 
-  font-weight: 300; 
-}
-
-/* Estilos para las sombras debajo del título y la descripción */
-ul li .title::before,
-ul li .descripcion::before {
-  content: ""; 
-  position: absolute; 
-  width: 90%; 
-  height: 0.5rem; 
-  background: rgba(0, 0, 0, 0.5);
-  left: 50%; 
-  border-radius: 50%; 
-  filter: blur(4px); 
-  transform: translate(-50%, 50%); 
-}
-
-ul li .title::before {
-  bottom: calc(100% + 0.125rem); 
-}
-
-ul li .descripcion::before {
-  z-index: -1;
-  bottom: 0.25rem;
-}
-
-
-/* Media query para pantallas anchas (40rem o más) */
-@media (min-width: 40rem) {
-  ul {
-    grid-template-columns: 1fr var(--line-w) 1fr;
-  }
-  ul::before {
-    grid-column: 2;
-  }
-  ul li:nth-child(odd) {
-    grid-column: 1;
-  }
-  ul li:nth-child(even) {
-    grid-column: 3;
-  }
-
-  /* Ajuste para que el segundo ítem abarque dos filas */
-  ul li:nth-child(2) {
-    grid-row: 2/4; 
-  }
-
-  /* Ajustes específicos para los ítems impares */
-  ul li:nth-child(odd) .fecha::before {
-    clip-path: polygon(0 0, 100% 0, 100% 100%);
-    left: 0;
-  }
-
-  ul li:nth-child(odd) .fecha::after {
-    transform: translate(-50%, -50%);
-    left: calc(100% + var(--col-gap) + var(--line-w) / 2);
-  }
-
-  ul li:nth-child(odd) .fecha {
-    border-radius: 0 calc(var(--dateH) / 2) calc(var(--dateH) / 2) 0;
-  }
-}
-
-/* Estilo para los créditos */
-.credits {
-  margin-top: 1rem;
-  text-align: right;
-}
-.credits a {
-  color: var(--color);
+.enlace:hover {
+  text-decoration: underline;
 }
 </style>

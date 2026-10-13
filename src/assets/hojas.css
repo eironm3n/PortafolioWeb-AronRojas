@@ -1,0 +1,141 @@
+/* Piezas comunes de las hojas del legajo: así todas comparten tarjeta, chips, metadatos y línea de
+   tiempo, y cambian juntas con el tema. Cada componente agrega solo lo propio en su <style scoped>. */
+
+/* Metadatos (fechas, emisores, contadores): monoespaciada, chica y suave. */
+.meta {
+  font-family: var(--fuente-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  color: var(--color-texto-suave);
+}
+
+.tarjeta {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-superficie-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-1);
+}
+
+a.tarjeta,
+.tarjeta-interactiva {
+  transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+}
+
+a.tarjeta:hover,
+.tarjeta-interactiva:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--sombra-2);
+  border-color: var(--color-chip-borde);
+}
+
+/* Grilla de tarjetas que se acomoda sola al ancho de la hoja. */
+.grilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--grilla-min, 280px)), 1fr));
+  gap: 1rem;
+  padding: 0;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  padding: 0;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--color-chip-texto);
+  background: var(--color-chip-fondo);
+  border: 1px solid var(--color-chip-borde);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* Título de grupo dentro de una hoja (categorías de habilidades, certificaciones…). */
+.grupo-titulo {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0 0 0.85rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.grupo-titulo .meta {
+  font-weight: 400;
+}
+
+/* Línea de tiempo vertical: un riel a la izquierda y un punto por hito. */
+.linea-tiempo {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0 0 0 1.75rem;
+}
+
+.linea-tiempo::before {
+  content: '';
+  position: absolute;
+  left: 0.4rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  border-radius: 2px;
+  background: var(--color-linea);
+}
+
+.linea-tiempo > li {
+  position: relative;
+}
+
+.linea-tiempo > li::before {
+  content: '';
+  position: absolute;
+  left: calc(-1.75rem + 0.4rem - 5px);
+  top: 1.6rem;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-background);
+  border: 3px solid var(--color-acento);
+}
+
+/* El hito actual late suave (salvo con movimiento reducido). */
+.linea-tiempo > li.actual::before {
+  background: var(--color-acento);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-acento) 50%, transparent);
+  animation: latido 2.4s ease-out infinite;
+}
+
+@keyframes latido {
+  70% { box-shadow: 0 0 0 10px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .linea-tiempo > li.actual::before {
+    animation: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .linea-tiempo {
+    padding-left: 1.25rem;
+  }
+
+  .linea-tiempo::before {
+    left: 0.2rem;
+  }
+
+  .linea-tiempo > li::before {
+    left: calc(-1.25rem + 0.2rem - 5px);
+  }
+}

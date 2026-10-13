@@ -95,81 +95,75 @@ const habilidades = ref([
 </script>
 
 <template>
-  <div class="skills-contenedor">
-    <div v-for="(habilidad, i) in habilidades" :key="habilidad.id" v-aparecer="{ efecto: 'subir', retraso: (i % 2) * 120 }" class="skills-categoria">
-      <h3>{{ habilidad.nombre }}</h3>
+  <div class="grilla">
+    <section v-for="(categoria, i) in habilidades" :key="categoria.id" v-aparecer="{ efecto: 'subir', retraso: (i % 3) * 100 }" class="tarjeta categoria">
+      <h3 class="grupo-titulo">{{ categoria.nombre }} <span class="meta">{{ String(categoria.habilidades.length).padStart(2, '0') }}</span></h3>
       <ul class="skills">
-        <li v-for="skill in habilidad.habilidades" :key="skill.id" class="skill">
-          <img v-if="skill.icono" :src="skill.icono" :alt="skill.nombre">
-          <span>{{ skill.nombre }}: {{ skill.nivel }}</span>
+        <li v-for="skill in categoria.habilidades" :key="skill.id" class="skill">
+          <!-- Sin logo propio va la inicial, así todas las filas quedan alineadas. -->
+          <img v-if="skill.icono" :src="skill.icono" alt="" width="28" height="28">
+          <span v-else class="inicial" aria-hidden="true">{{ skill.nombre[0] }}</span>
+          <span class="nombre">{{ skill.nombre }}</span>
+          <span class="meta nivel">{{ skill.nivel }}</span>
         </li>
       </ul>
-    </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
-.skills-contenedor {
-  padding: 2rem;
-  background: var(--hoja-degrade);
+.grilla {
+  --grilla-min: 320px;
+  align-items: start;
 }
 
-.skills-categoria {
-  margin-bottom: 20px;
-}
-
-.skills-categoria h3 {
-  display: flex;
-  justify-content: left;
-  margin-bottom: 10px;
-  font-size: 1.5em;
-  color: aliceblue;
-  font-weight: bold;
-  /* Separa el título del degradé, que en la esquina superior es casi blanco. */
-  text-shadow: 0 1px 3px rgba(2, 21, 38, 0.85);
+/* La regla global de <section> (paneles translúcidos) no aplica a estas tarjetas. */
+.categoria {
+  margin: 0;
+  padding: 1.25rem 1.25rem 0.75rem;
+  backdrop-filter: none;
 }
 
 .skills {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-  gap: 20px;
+  flex-direction: column;
+  padding: 0;
 }
 
 .skill {
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  column-gap: 0.75rem;
   align-items: center;
-  gap: 10px;
-  background-color: rgba(241, 245, 243, 0.856);
-  padding: 0.3em 0.6em;
-  border-radius: 8px;
-  box-shadow: 0px 4px 12px var(--hoja-resalte);
-  flex: 1 1 200px;
-  max-width: 280px;
+  padding: 0.55rem 0;
+  border-top: 1px solid var(--color-border);
 }
 
-.skill:hover {
-  background-color: var(--hoja-resalte);
+.skill img,
+.inicial {
+  grid-row: span 2;
+  width: 28px;
+  height: 28px;
 }
 
-.skill img {
-  width: 35px;
-  height: 35px;
+.inicial {
+  display: grid;
+  place-items: center;
+  border-radius: var(--radio-chico);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-chip-texto);
+  background: var(--color-chip-fondo);
 }
 
-.skill span {
-  font-size: 0.95em;
-  color: #333;
+.nombre {
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--color-puesto);
 }
 
-@media (max-width: 768px) {
-  .skills-categoria h3 {
-    justify-content: center;
-  }
-
-  .skill {
-    justify-content: center;
-  }
+.nivel {
+  font-size: 0.75rem;
 }
 </style>

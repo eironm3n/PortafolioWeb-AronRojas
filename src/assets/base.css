@@ -46,8 +46,8 @@
 
   --color-superficie: #ffffff;
   --color-superficie-borde: #dde3ea;
-  --color-puesto: #b4441f;
-  --color-empresa: #7a5320;
+  --color-puesto: #3b1027;
+  --color-empresa: #c2116e;
 
   --color-nav-fondo: #fde4ef;
   --color-nav-texto: #9c0a55;
@@ -71,7 +71,20 @@
   --hoja-boton-hover: #9c0a55;
   --hoja-stack: #9c0a55;
 
+  /* Sistema visual común de las hojas (tarjetas, chips, línea de tiempo): ver hojas.css. */
+  --color-superficie-2: #fff8fb;
+  --color-chip-fondo: #fde4ef;
+  --color-chip-texto: #7a0a44;
+  --color-chip-borde: rgba(156, 10, 85, 0.18);
+  --color-linea: rgba(156, 10, 85, 0.22);
+  --sombra-1: 0 1px 2px rgba(59, 16, 39, 0.06), 0 4px 14px rgba(59, 16, 39, 0.06);
+  --sombra-2: 0 2px 6px rgba(59, 16, 39, 0.08), 0 14px 34px rgba(59, 16, 39, 0.12);
+
   --section-gap: 160px;
+
+  --fuente-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+  --radio: 14px;
+  --radio-chico: 8px;
 }
 
 /* Modo oscuro: los tokens se repiten en los dos bloques porque CSS no permite compartirlos. */
@@ -95,10 +108,10 @@
     --color-acento: #6EACDA;
     --color-sobre-acento: #021526;
 
-    --color-superficie: rgb(28, 41, 52);
-    --color-superficie-borde: transparent;
-    --color-puesto: coral;
-    --color-empresa: burlywood;
+    --color-superficie: #0d151d;
+    --color-superficie-borde: rgba(110, 172, 218, 0.14);
+    --color-puesto: #eaf3fb;
+    --color-empresa: #6EACDA;
 
     --color-nav-fondo: var(--vt-c-indigo);
     --color-nav-texto: var(--vt-c-white);
@@ -117,6 +130,14 @@
     --hoja-boton: #0062CC;
     --hoja-boton-hover: #004A99;
     --hoja-stack: #03346E;
+
+    --color-superficie-2: #111c26;
+    --color-chip-fondo: rgba(110, 172, 218, 0.12);
+    --color-chip-texto: #b9dcf5;
+    --color-chip-borde: rgba(110, 172, 218, 0.22);
+    --color-linea: rgba(110, 172, 218, 0.25);
+    --sombra-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
+    --sombra-2: 0 2px 6px rgba(0, 0, 0, 0.5), 0 14px 34px rgba(0, 0, 0, 0.45);
   }
 }
 
@@ -139,10 +160,10 @@
   --color-acento: #6EACDA;
   --color-sobre-acento: #021526;
 
-  --color-superficie: rgb(28, 41, 52);
-  --color-superficie-borde: transparent;
-  --color-puesto: coral;
-  --color-empresa: burlywood;
+  --color-superficie: #0d151d;
+  --color-superficie-borde: rgba(110, 172, 218, 0.14);
+  --color-puesto: #eaf3fb;
+  --color-empresa: #6EACDA;
 
   --color-nav-fondo: var(--vt-c-indigo);
   --color-nav-texto: var(--vt-c-white);
@@ -161,6 +182,14 @@
   --hoja-boton: #0062CC;
   --hoja-boton-hover: #004A99;
   --hoja-stack: #03346E;
+
+  --color-superficie-2: #111c26;
+  --color-chip-fondo: rgba(110, 172, 218, 0.12);
+  --color-chip-texto: #b9dcf5;
+  --color-chip-borde: rgba(110, 172, 218, 0.22);
+  --color-linea: rgba(110, 172, 218, 0.25);
+  --sombra-1: 0 1px 2px rgba(0, 0, 0, 0.4), 0 4px 14px rgba(0, 0, 0, 0.3);
+  --sombra-2: 0 2px 6px rgba(0, 0, 0, 0.5), 0 14px 34px rgba(0, 0, 0, 0.45);
 }
 
 *,
@@ -180,7 +209,7 @@ body {
     background-color 0.5s; /* Transición suave de 0.5s para el color de fondo */
   line-height: 1.6; /* Establece el espacio entre líneas del texto */
   font-family:
-    Inter, /* Fuente principal */
+    Inter, /* Fuente principal (se carga desde Google Fonts en index.html) */
     -apple-system, /* Fuente en sistemas Apple */
     BlinkMacSystemFont, /* Fuente en sistemas Mac */
     'Segoe UI', /* Fuente en Windows */

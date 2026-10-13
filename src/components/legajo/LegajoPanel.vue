@@ -276,13 +276,16 @@ function soltar(evento) {
 }
 
 .hoja-numero {
-  font-size: 0.85rem;
+  font-family: var(--fuente-mono);
+  font-size: 0.8rem;
   letter-spacing: 0.15em;
-  color: var(--color-texto-suave);
+  color: var(--color-acento);
 }
 
 .hoja-encabezado h2 {
-  font-size: 2rem;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--color-heading);
 }
 

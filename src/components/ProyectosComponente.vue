@@ -136,20 +136,26 @@ onBeforeUnmount(() => ctx.revert());
       :key="proyecto.id"
       ref="celdas"
       class="celda"
+      :class="{ destacada: i === 0 }"
     >
-      <article class="proyecto" v-aparecer="{ efecto: 'subir', retraso: (i % 3) * 120 }">
+      <article v-aparecer="{ efecto: 'subir', retraso: (i % 3) * 120 }" class="tarjeta tarjeta-interactiva proyecto">
         <img v-if="proyecto.imagen" :src="proyecto.imagen" :alt="`Captura del proyecto ${proyecto.titulo}`">
-        <div v-else class="proyecto-sinimg">{{ proyecto.stack }}</div>
+        <!-- Sin captura: una miniatura con la categoría sobre una grilla, como un plano. -->
+        <div v-else class="proyecto-sinimg" aria-hidden="true">
+          <span class="meta">{{ proyecto.categoria }}</span>
+        </div>
         <div class="proyecto-info">
-          <span class="badge" :class="proyecto.estado === 'publicado' ? 'badge-ok' : 'badge-wip'">
-            {{ proyecto.estado }}
-          </span>
           <h3>{{ proyecto.titulo }}</h3>
-          <p>{{ proyecto.descripcion }}</p>
-          <p class="stack">{{ proyecto.stack }}</p>
+          <p class="descripcion">{{ proyecto.descripcion }}</p>
+          <ul class="chips" aria-label="Tecnologías">
+            <li v-for="tec in proyecto.stack.split(' · ')" :key="tec" class="chip">{{ tec }}</li>
+          </ul>
           <div class="proyecto-links">
-            <a v-if="proyecto.projectoLink" :href="proyecto.projectoLink" class="btn-ver-mas" target="_blank" rel="noopener noreferrer">Ver proyecto</a>
-            <a v-if="proyecto.githubLink" :href="proyecto.githubLink" class="github-link" target="_blank" rel="noopener noreferrer">Ver código en GitHub</a>
+            <a v-if="proyecto.githubLink" :href="proyecto.githubLink" class="enlace-codigo" target="_blank" rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.68 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.41-2.69 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z" /></svg>
+              Código
+            </a>
+            <a v-if="proyecto.projectoLink" :href="proyecto.projectoLink" class="enlace-ver" target="_blank" rel="noopener noreferrer">Ver proyecto ↗</a>
           </div>
         </div>
       </article>
@@ -159,28 +165,22 @@ onBeforeUnmount(() => ctx.revert());
 
 <style scoped>
 .galeria {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
-  justify-content: center;
-  background: var(--hoja-degrade);
-  background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 1rem;
+  align-items: start;
+  padding: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .galeria {
-    animation: none;
+/* El proyecto más completo ocupa dos columnas cuando hay lugar. */
+@media (min-width: 900px) {
+  .celda.destacada {
+    grid-column: span 2;
   }
-}
 
-@keyframes gradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  .destacada .proyecto-sinimg {
+    height: 180px;
+  }
 }
 
 .filtros {
@@ -188,125 +188,122 @@ onBeforeUnmount(() => ctx.revert());
   flex-wrap: wrap;
   justify-content: center;
   gap: 8px;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 
 .filtros > button {
   padding: 6px 14px;
   border-radius: 999px;
-  border: 1px solid var(--color-acento);
+  border: 1px solid var(--color-chip-borde);
   background: transparent;
-  color: var(--color-acento);
+  color: var(--color-text);
   font: inherit;
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-.filtros > button:hover,
+.filtros > button:hover {
+  border-color: var(--color-acento);
+}
+
 .filtros > button[aria-pressed='true'] {
   background: var(--color-acento);
+  border-color: var(--color-acento);
   color: var(--color-sobre-acento);
 }
 
 .celda {
   display: flex;
-  max-width: 300px;
-  flex: 1 1 300px;
 }
 
 .proyecto {
   display: flex;
   flex-direction: column;
   width: 100%;
-  border: 2px solid #ddd;
-  border-radius: 8px;
   overflow: hidden;
-  background-color: #f9f9f9;
 }
 
 .proyecto img {
   width: 100%;
   height: 160px;
   object-fit: cover;
+  object-position: top;
   display: block;
+  border-bottom: 1px solid var(--color-superficie-borde);
 }
 
 .proyecto-sinimg {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-end;
   height: 160px;
-  background: var(--hoja-miniatura);
-  color: var(--hoja-miniatura-texto);
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  padding: 0 1rem;
-  text-align: center;
+  padding: 0.9rem 1.1rem;
+  background:
+    linear-gradient(var(--color-linea) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(90deg, var(--color-linea) 1px, transparent 1px) 0 0 / 24px 24px,
+    linear-gradient(135deg, var(--color-chip-fondo), var(--color-superficie-2));
+  border-bottom: 1px solid var(--color-superficie-borde);
+}
+
+.proyecto-sinimg .meta {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-chip-texto);
 }
 
 .proyecto-info {
-  padding: 15px;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  padding: 1.1rem 1.2rem 1.2rem;
 }
-
-.badge {
-  display: inline-block;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  margin-bottom: 8px;
-}
-
-.badge-ok { background: #cdeccd; color: #1b5e20; }
-.badge-wip { background: #ffe0b2; color: #8a4b00; }
 
 .proyecto-info h3 {
-  margin: 6px 0;
-  font-size: 1.2em;
-  color: #333;
-}
-
-.proyecto-info p {
-  margin: 8px 0;
-  font-size: 0.95em;
-  color: #666;
-}
-
-.stack {
-  font-size: 0.85em !important;
-  color: var(--hoja-stack) !important;
+  font-size: 1.1rem;
   font-weight: 600;
+  line-height: 1.35;
+  color: var(--color-puesto);
+}
+
+.descripcion {
+  font-size: 0.93rem;
+  color: var(--color-texto-suave);
 }
 
 .proyecto-links {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 20px;
+  align-items: center;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 0.25rem;
 }
 
-.proyecto-links .btn-ver-mas {
-  background-color: var(--hoja-boton);
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
-  text-decoration: none;
-  transition: background-color 0.3s;
+.proyecto-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
-.proyecto-links .btn-ver-mas:hover {
-  background-color: var(--hoja-boton-hover);
+.enlace-codigo {
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  color: var(--color-sobre-acento);
+  background: var(--color-acento);
+  transition: filter 0.2s;
 }
 
-.proyecto-links .github-link {
-  color: #333;
-  text-decoration: none;
-  font-size: 0.9em;
+.enlace-codigo:hover {
+  filter: brightness(1.1);
 }
 
-.proyecto-links .github-link:hover {
+.enlace-ver {
+  color: var(--color-acento);
+}
+
+.enlace-ver:hover {
   text-decoration: underline;
 }
 </style>

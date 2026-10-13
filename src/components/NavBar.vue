@@ -51,6 +51,7 @@ import { hojas, activa, alternar } from './legajo/legajo.js';
     padding: 0.45rem 1rem;
     text-align: center;
     white-space: nowrap;
+    font-weight: 500;
     color: var(--color-nav-texto);
     border: 1px solid var(--color-nav-borde);
     border-bottom: none;

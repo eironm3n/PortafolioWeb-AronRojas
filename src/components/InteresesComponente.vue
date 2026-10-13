@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue';
-import FondoLava from './FondoLava.vue';
 //Este es un arreglo con ref para que se pueda reactivar el cambio de los intereses
 const intereses = ref([
     'Infraestructura y automatización: Me interesa el diseño de infraestructura reproducible, la automatización de operaciones y la observabilidad. Aprendo y pruebo herramientas en entornos propios antes de aplicarlas.',
@@ -9,44 +8,40 @@ const intereses = ref([
     'Boxeo: Lo practico para manejar el estrés y mantener un estado físico sano.',
     'Senderismo de alta montaña: Hago cumbres en montañas de altura desafiante; me gusta poner a prueba el estado físico y disfrutar la naturaleza.'
 ]);
+// Cada interés es "Título: descripción"; se separa para mostrarlo como tarjeta.
+const tarjetas = intereses.value.map((texto) => {
+    const [titulo, ...resto] = texto.split(': ');
+    return { titulo, texto: resto.join(': ') };
+});
 </script>
 
 <template>
-    <div class="intereses-contenedor">
-        <FondoLava />
-        <ul class="contenedor-lista">
-            <li class="item" v-for="(interes, i) in intereses" :key="interes" v-aparecer="{ efecto: 'subir', retraso: i * 100 }">
-                {{ interes }}
-            </li>
-        </ul>
-    </div>
+    <ul class="grilla">
+        <li v-for="(interes, i) in tarjetas" :key="interes.titulo" v-aparecer="{ efecto: 'subir', retraso: (i % 3) * 100 }" class="tarjeta interes">
+            <span class="meta">{{ String(i + 1).padStart(2, '0') }}</span>
+            <h3>{{ interes.titulo }}</h3>
+            <p>{{ interes.texto }}</p>
+        </li>
+    </ul>
 </template>
 
 <style scoped>
-.intereses-contenedor {
-    display: flex;
-    position: relative;
-    /* Fondo oscuro propio: el texto es claro y en modo claro quedaba sobre blanco donde la lava no llega.
-       isolation crea el contexto de apilamiento para que la lava (z-index: -1) quede encima de este fondo. */
-    isolation: isolate;
-    background-color: #1c1530;
-    border-radius: 5px;
-    overflow: hidden;
-    margin: 0 auto;
-    max-width: 85%;
-    padding: 1rem;
+.grilla {
+    --grilla-min: 260px;
 }
 
-.contenedor-lista {
-    list-style-type: none;
-    padding: 1rem;
-    margin-bottom: .5rem;
-    color: var(--vt-c-white-soft);
-    font-size: 1.4rem;
-    text-shadow: 3px 3px 6px rgba(0, 0, 0, 1);
+.interes {
+    padding: 1.25rem 1.3rem;
 }
 
-.item {
-    margin-bottom: 1rem;
+h3 {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--color-puesto);
+}
+
+p {
+    font-size: 0.95rem;
 }
 </style>

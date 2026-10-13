@@ -9,6 +9,8 @@ const experiencias = ref([
     puesto: 'Soporte Técnico de Aplicaciones y Datos (L1/L2)',
     empresa: 'PeCOM — E&D HelpDesk (vía ReMASA)',
     periodo: 'Sep 2024 – Actualidad · Remoto',
+    actual: true,
+    etiquetas: ['AWS EC2', 'Windows Server', 'PowerShell', 'Petrel', 'tNavigator', 'InVgate', 'Python'],
     logros: [
       'Administración de instancias EC2 en AWS con Windows Server, incluidas instancias con GPU, para software de geociencia de alto cómputo (Petrel, tNavigator, CMG, Sahara, QGIS), con tareas de administración en PowerShell.',
       'Soporte L1 y L2 a geocientíficos e ingenieros vía TeamViewer, con gestión de tickets en InVgate.',
@@ -21,6 +23,8 @@ const experiencias = ref([
     puesto: 'Soporte interno',
     empresa: 'ReMASA',
     periodo: 'Sep 2024 – Actualidad · Remoto',
+    actual: true,
+    etiquetas: ['Jira', 'VBA', 'Microsoft 365', 'Google Workspace', 'n8n', 'Docker', 'WordPress'],
     logros: [
       'Soporte a usuarios vía RDP, con gestión de tickets en Jira.',
       'Macros en VBA para automatizar cálculos y reportes internos.',
@@ -38,6 +42,7 @@ const experiencias = ref([
     puesto: 'Soporte de Aplicaciones L1 · Trainee → Junior',
     empresa: 'YPF — CSG, Centro de Soluciones de Geociencia (vía ReMASA)',
     periodo: 'Nov 2021 – Sep 2024 · Remoto (usuarios de 6 países)',
+    etiquetas: ['ServiceNow', 'Redmine', 'Suite SLB', 'CMG', 'Azure', 'Linux', 'Citrix'],
     logros: [
       'Ingresé como Trainee y me formé en la práctica junto a los niveles L2 y L3 del equipo.',
       'Resolución de 6 a 10 tickets diarios bajo SLA, gestionados en ServiceNow y Redmine, para geólogos, ingenieros de reservorios y analistas.',
@@ -51,68 +56,82 @@ const experiencias = ref([
 </script>
 
 <template>
-  <div class="card">
-    <ul class="roles">
-      <li class="rol" v-for="exp in experiencias" :key="exp.id" v-aparecer="'subir'">
-        <h3 class="puesto">{{ exp.puesto }}</h3>
-        <p class="empresa">{{ exp.empresa }}</p>
-        <p class="periodo">{{ exp.periodo }}</p>
+  <ol class="linea-tiempo">
+    <li v-for="exp in experiencias" :key="exp.id" v-aparecer="'subir'" class="rol" :class="{ actual: exp.actual }">
+      <article class="tarjeta">
+        <header>
+          <p class="meta periodo">{{ exp.periodo }}</p>
+          <h3 class="puesto">{{ exp.puesto }}</h3>
+          <p class="empresa">{{ exp.empresa }}</p>
+        </header>
         <ul class="logros">
           <li v-for="(logro, i) in exp.logros" :key="i">{{ logro }}</li>
         </ul>
-      </li>
-    </ul>
-  </div>
+        <ul class="chips" aria-label="Herramientas">
+          <li v-for="etiqueta in exp.etiquetas" :key="etiqueta" class="chip">{{ etiqueta }}</li>
+        </ul>
+      </article>
+    </li>
+  </ol>
 </template>
 
 <style scoped>
-.card {
-  display: flex;
-  flex-direction: column;
-  padding: 2rem;
-  background-color: var(--color-superficie);
-  border: 1px solid var(--color-superficie-borde);
-  border-radius: 15px;
+.linea-tiempo {
+  max-width: 880px;
+  margin: 0 auto;
 }
 
-.roles {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  padding: 0;
+.tarjeta {
+  padding: 1.4rem 1.6rem;
 }
 
-.rol {
-  border-left: 3px solid var(--color-puesto);
-  padding-left: 1.25rem;
+.periodo {
+  margin-bottom: 0.3rem;
 }
 
 .puesto {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.3;
   color: var(--color-puesto);
 }
 
 .empresa {
-  font-size: 1.05rem;
+  font-weight: 500;
   color: var(--color-empresa);
   margin-top: 0.15rem;
-}
-
-.periodo {
-  font-size: 0.95rem;
-  color: var(--color-texto-suave);
-  margin-bottom: 0.75rem;
 }
 
 .logros {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  padding-left: 1.1rem;
+  gap: 0.45rem;
+  margin: 1rem 0 1.1rem;
+  padding: 0;
 }
 
 .logros li {
-  list-style: disc;
-  font-size: 1rem;
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.98rem;
+}
+
+/* Viñeta propia en el color de acento. */
+.logros li::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  top: 0.62em;
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: var(--color-acento);
+  opacity: 0.7;
+}
+
+@media (max-width: 768px) {
+  .tarjeta {
+    padding: 1.1rem 1rem;
+  }
 }
 </style>

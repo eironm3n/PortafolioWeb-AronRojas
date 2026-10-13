@@ -15,6 +15,13 @@ const descripcion = 'Especialista en Soporte de Aplicaciones';
 const especialidades = 'Cloud (AWS/Azure) · Automatización · Geociencia / Oil & Gas';
 const residencia = 'Mendoza, Argentina · Trabajo remoto';
 const presentacion = 'Cinco años de soporte L1 y L2 en entornos críticos de cómputo intensivo del sector energético, para geólogos, ingenieros de reservorios y equipos de exploración de YPF y PeCOM; empecé como Trainee y hoy soy referente L2. Sumo infraestructura en AWS y Azure, Windows Server con PowerShell y automatización con Python e IA. Técnico Universitario en Programación (UTN).';
+// Lo que un reclutador busca de un vistazo; todo sale de la experiencia del CV.
+const cifras = [
+  { valor: '5 años', detalle: 'soporte L1 / L2' },
+  { valor: '6 países', detalle: 'usuarios atendidos' },
+  { valor: 'AWS · Azure', detalle: 'infraestructura cloud' },
+  { valor: 'Trainee → L2', detalle: 'hoy referente' },
+];
 const redesSociales = [
   { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/', externo: true },
   { id: 3, name: 'GitHub', src: github, url: 'https://github.com/eironm3n', externo: true },
@@ -53,6 +60,12 @@ function entrarRed(evento) {
         <h2>{{ descripcion }}</h2>
         <p class="especialidades">{{ especialidades }}</p>
         <p class="presentacion">{{ presentacion }}</p>
+        <dl class="cifras">
+          <div v-for="cifra in cifras" :key="cifra.valor">
+            <dt>{{ cifra.detalle }}</dt>
+            <dd>{{ cifra.valor }}</dd>
+          </div>
+        </dl>
         <div class="acciones">
           <!-- Acción principal: abre la primera hoja desde su solapa y enseña cómo se usa el sitio. -->
           <button type="button" class="boton-principal" @click="abrir('experiencia')">
@@ -70,7 +83,7 @@ function entrarRed(evento) {
             </li>
           </ul>
         </div>
-        <p class="residencia">{{ residencia }}</p>
+        <p class="meta residencia">{{ residencia }}</p>
       </div>
     </FondoOndas>
   </section>
@@ -83,15 +96,16 @@ function entrarRed(evento) {
 }
 
 .nombre :deep(.titulo) {
-  font-size: 2.75rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
   line-height: 1.2;
   color: var(--color-hero-nombre);
 }
 
 .card h2 {
   font-size: 1.5rem;
+  font-weight: 500;
   color: var(--color-hero-titulo);
   margin-bottom: 0.2rem;
 }
@@ -103,6 +117,36 @@ function entrarRed(evento) {
   color: var(--color-hero-titulo);
   opacity: 0.85;
   margin: 0 0 1rem;
+}
+
+/* Cifras: el valor grande arriba y qué significa abajo (el <dt> va después en pantalla). */
+.cifras {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 0 0 1.5rem;
+}
+
+.cifras > div {
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 0.6rem 0.4rem;
+  border-radius: var(--radio-chico);
+  background: color-mix(in srgb, var(--color-hero-titulo) 8%, transparent);
+  border: 1px solid color-mix(in srgb, var(--color-hero-titulo) 18%, transparent);
+}
+
+.cifras dd {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-hero-nombre);
+}
+
+.cifras dt {
+  font-family: var(--fuente-mono);
+  font-size: 0.72rem;
+  color: var(--color-hero-texto);
 }
 
 .presentacion {
@@ -241,16 +285,19 @@ function entrarRed(evento) {
 }
 
 .icon-redsocial {
-  background-color: aliceblue;
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
   border-radius: 50%;
   padding: 2px;
-  box-shadow: 0 0 5px rgba(95, 124, 205, 0.934);
-  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-acento) 45%, transparent);
+  transition: box-shadow 0.3s, transform 0.3s;
 }
 
-.container-lista a:hover .icon-redsocial {
-  background-color: rgb(28, 41, 52);
-  box-shadow: 0 0 5px rgba(251, 249, 249, 0.934);
+.container-lista a:hover .icon-redsocial,
+.container-lista a:focus-visible .icon-redsocial {
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 2px var(--color-acento), 0 6px 16px color-mix(in srgb, var(--color-acento) 40%, transparent);
 }
 
 .card .residencia {
@@ -292,6 +339,11 @@ function entrarRed(evento) {
     font-size: 1rem;
     margin-bottom: 1.1rem;
   }
+
+  .cifras {
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 1.1rem;
+  }
 }
 
 /* Pantallas bajas (celulares chicos): todo un poco más compacto para que la tarjeta entre entera. */
@@ -322,6 +374,10 @@ function entrarRed(evento) {
 
   .acciones {
     margin-bottom: 0.6rem;
+  }
+
+  .cifras {
+    display: none;
   }
 }
 </style>
