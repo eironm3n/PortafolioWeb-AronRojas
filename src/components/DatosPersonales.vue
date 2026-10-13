@@ -14,7 +14,7 @@ const title = 'Arón Rojas';
 const descripcion = 'Especialista en Soporte de Aplicaciones';
 const especialidades = 'Cloud (AWS/Azure) · Automatización · Geociencia / Oil & Gas';
 const residencia = 'Mendoza, Argentina · Trabajo remoto';
-const presentacion = 'Casi cinco años de soporte L1 y L2 en entornos críticos de cómputo intensivo del sector energético, para geólogos, ingenieros de reservorios y equipos de exploración de YPF y PeCOM; empecé como Trainee y hoy soy referente L2. Sumo infraestructura en AWS y Azure, Windows Server con PowerShell y automatización con Python e IA. Técnico Universitario en Programación (UTN, título en trámite).';
+const presentacion = 'Cinco años de soporte L1 y L2 en entornos críticos de cómputo intensivo del sector energético, para geólogos, ingenieros de reservorios y equipos de exploración de YPF y PeCOM; empecé como Trainee y hoy soy referente L2. Sumo infraestructura en AWS y Azure, Windows Server con PowerShell y automatización con Python e IA. Técnico Universitario en Programación (UTN, título en trámite).';
 const redesSociales = [
   { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/', externo: true },
   { id: 3, name: 'GitHub', src: github, url: 'https://github.com/eironm3n', externo: true },
