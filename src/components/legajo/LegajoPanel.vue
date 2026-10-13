@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineAsyncComponent, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue';
-import { activa, cerrar, hojas, hojear, indiceDe, progreso } from './legajo.js';
+import { activa, cerrar, hojas, hojear, indiceDe, origen, progreso } from './legajo.js';
 
 // Cada hoja se descarga aparte: la portada carga liviana y las hojas se traen en segundo plano
 // apenas el navegador está libre, así ya están listas cuando se abre la primera.
@@ -32,19 +32,23 @@ const cuerpo = ref(null);
 const movimientoReducido = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const solapaDe = (id) => document.querySelector(`.pestana[data-hoja="${id}"]`);
+// El elemento del que sale (y al que vuelve) la hoja: el mosaico que se clickeó o, si no, su solapa.
+const desdeMosaico = (id) => origen?.id === id && origen.el.isConnected;
+const origenDe = (id) => (desdeMosaico(id) ? origen.el : solapaDe(id));
 
-// Recorte con la forma de la solapa, medido desde el panel ya ubicado en su lugar final. El panel
-// además se sube hasta la altura de la solapa, así el recorte nunca necesita valores negativos.
+// Recorte con la forma de la solapa (o del mosaico), medido desde el panel ya ubicado en su lugar
+// final. El panel además se sube hasta la altura del origen, así el recorte nunca necesita valores
+// negativos.
 function formaDeSolapa(id) {
   const p = panel.value.getBoundingClientRect();
-  const s = solapaDe(id)?.getBoundingClientRect();
+  const s = origenDe(id)?.getBoundingClientRect();
   if (!s) return null;
   const limitar = (v) => Math.min(Math.max(v, 0), p.width - 1);
   const izquierda = limitar(s.left - p.left);
   const derecha = limitar(p.right - s.right);
   return {
     transform: `translateY(${s.top - p.top}px)`,
-    clipPath: `inset(0px ${derecha}px ${Math.max(p.height - s.height, 0)}px ${izquierda}px round 9px)`,
+    clipPath: `inset(0px ${derecha}px ${Math.max(p.height - s.height, 0)}px ${izquierda}px round ${desdeMosaico(id) ? 18 : 9}px)`,
   };
 }
 const formaAbierta = { transform: 'translateY(0px)', clipPath: 'inset(0px 0px 0px 0px round 14px)' };
@@ -115,7 +119,11 @@ async function sincronizar() {
 
 watch(activa, (id, anterior) => {
   // Al guardar con Escape o click afuera, el foco vuelve a la solapa de donde salió la hoja.
-  if (!id && anterior) solapaDe(anterior)?.focus({ preventScroll: true });
+  if (!id && anterior) {
+    // Vuelve al botón del mosaico si salió de uno; si no, a la solapa.
+    const destino = desdeMosaico(anterior) ? origen.el.querySelector('.abrir') : solapaDe(anterior);
+    destino?.focus({ preventScroll: true });
+  }
   sincronizar();
 });
 onMounted(sincronizar);
@@ -276,13 +284,16 @@ function soltar(evento) {
 }
 
 .hoja-numero {
-  font-size: 0.85rem;
+  font-family: var(--fuente-mono);
+  font-size: 0.8rem;
   letter-spacing: 0.15em;
-  color: var(--color-texto-suave);
+  color: var(--color-acento);
 }
 
 .hoja-encabezado h2 {
-  font-size: 2rem;
+  font-size: 2.1rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   color: var(--color-heading);
 }
 

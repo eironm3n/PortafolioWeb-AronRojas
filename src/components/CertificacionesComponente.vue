@@ -45,76 +45,65 @@ const grupos = ref([
 
 <template>
   <div class="cert-contenedor">
-    <div class="cert-grupo" v-for="(grupo, i) in grupos" :key="grupo.id" v-aparecer="{ efecto: 'subir', retraso: (i % 2) * 120 }">
-      <h3>{{ grupo.nombre }}</h3>
-      <ul class="cert-lista">
-        <li class="cert" v-for="item in grupo.items" :key="item.id">
-          <a :href="item.link" target="_blank" rel="noopener noreferrer">
+    <section v-for="(grupo, i) in grupos" :key="grupo.id" v-aparecer="{ efecto: 'subir', retraso: (i % 2) * 120 }" class="cert-grupo">
+      <h3 class="grupo-titulo">{{ grupo.nombre }} <span class="meta">{{ String(grupo.items.length).padStart(2, '0') }}</span></h3>
+      <ul class="grilla">
+        <li v-for="item in grupo.items" :key="item.id">
+          <a :href="item.link" class="tarjeta cert" target="_blank" rel="noopener noreferrer">
             <span class="cert-nombre">{{ item.nombre }}</span>
-            <span class="cert-meta">{{ item.emisor }} · {{ item.anio }}</span>
+            <span class="cert-pie">
+              <span class="meta">{{ item.emisor }} · {{ item.anio }}</span>
+              <!-- Los enlaces externos se pueden verificar en la fuente; el resto es el PDF del certificado. -->
+              <span class="chip">{{ item.link.startsWith('http') ? 'Verificar ↗' : 'Ver PDF' }}</span>
+            </span>
           </a>
         </li>
       </ul>
-    </div>
+    </section>
   </div>
 </template>
 
 <style scoped>
 .cert-contenedor {
-  padding: 2rem;
-  background: var(--hoja-degrade);
-  border-radius: 10px;
-}
-
-.cert-grupo {
-  margin-bottom: 1.75rem;
-}
-
-.cert-grupo h3 {
-  margin-bottom: 0.75rem;
-  font-size: 1.4rem;
-  font-weight: bold;
-  color: aliceblue;
-  /* Separa el título del degradé, que en la esquina superior es casi blanco. */
-  text-shadow: 0 1px 3px rgba(2, 21, 38, 0.85);
-}
-
-.cert-lista {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* La regla global de <section> (paneles translúcidos) no aplica acá. */
+.cert-grupo {
+  margin: 0;
   padding: 0;
+  border: none;
+  background: none;
+  backdrop-filter: none;
+}
+
+.grilla {
+  --grilla-min: 300px;
 }
 
 .cert {
-  flex: 1 1 320px;
-  max-width: 420px;
-}
-
-.cert a {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  background-color: rgba(241, 245, 243, 0.9);
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  box-shadow: 0 4px 12px color-mix(in srgb, var(--hoja-resalte) 55%, transparent);
-  color: #222;
-  transition: background-color 0.3s;
-}
-
-.cert a:hover {
-  background-color: var(--hoja-resalte);
-  color: #fff;
+  justify-content: space-between;
+  gap: 0.75rem;
+  height: 100%;
+  padding: 1rem 1.1rem;
+  color: var(--color-text);
 }
 
 .cert-nombre {
   font-weight: 600;
-  font-size: 0.98rem;
+  line-height: 1.4;
+  color: var(--color-puesto);
 }
 
-.cert-meta {
-  font-size: 0.82rem;
-  opacity: 0.75;
+.cert-pie {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 </style>
