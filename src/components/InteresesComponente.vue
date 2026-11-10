@@ -5,7 +5,7 @@ import FondoLava from './FondoLava.vue';
 const intereses = ref([
     'Infraestructura y automatización: Me interesa el diseño de infraestructura reproducible, la automatización de operaciones y la observabilidad. Aprendo y pruebo herramientas en entornos propios antes de aplicarlas.',
     'Homelab y self-hosting: Monto servicios en casa (contenedores, monitoreo, backups) para experimentar con lo que después uso en el trabajo.',
-    'Inteligencia Artificial aplicada: Uso de IA para generar scripts, automatizar tareas y documentar de forma clara y consistente.',
+    'Inteligencia artificial aplicada: Uso de IA para generar scripts, automatizar tareas y documentar de forma clara y consistente.',
     'Boxeo: Lo practico para manejar el estrés y mantener un estado físico sano.',
     'Senderismo de alta montaña: Hago cumbres en montañas de altura desafiante; me gusta poner a prueba el estado físico y disfrutar la naturaleza.'
 ]);
