@@ -25,7 +25,7 @@ import { ref } from 'vue';
 
 const habilidades = ref([
   {
-    id: 6, nombre: 'Soporte y Gestión del Servicio', habilidades: [
+    id: 6, nombre: 'Soporte y gestión del servicio', habilidades: [
       { id: 1, nombre: 'ServiceNow', nivel: 'Uso profesional', icono: null },
       { id: 2, nombre: 'Jira / InVgate / Redmine', nivel: 'Uso profesional', icono: null },
       { id: 3, nombre: 'SLA / gestión de incidencias', nivel: 'Aplicado', icono: null },
@@ -34,7 +34,7 @@ const habilidades = ref([
     ],
   },
   {
-    id: 8, nombre: 'Aplicaciones de Geociencia', habilidades: [
+    id: 8, nombre: 'Aplicaciones de geociencia', habilidades: [
       { id: 1, nombre: 'Petrel y suite SLB (Studio, Ocean, Visage, Intersect)', nivel: 'Soporte L1/L2', icono: null },
       { id: 2, nombre: 'tNavigator', nivel: 'Soporte L1/L2', icono: null },
       { id: 3, nombre: 'CMG', nivel: 'Soporte L1/L2', icono: null },
@@ -50,7 +50,7 @@ const habilidades = ref([
     ],
   },
   {
-    id: 2, nombre: 'Infraestructura y Sistemas', habilidades: [
+    id: 2, nombre: 'Infraestructura y sistemas', habilidades: [
       { id: 1, nombre: 'Linux (Red Hat, Debian)', nivel: 'Uso profesional', icono: iconLinux },
       { id: 2, nombre: 'Windows Server 2016 / 2022', nivel: 'Uso profesional', icono: null },
       { id: 3, nombre: 'Administración de sistemas', nivel: 'Uso profesional', icono: null },
@@ -58,7 +58,7 @@ const habilidades = ref([
     ],
   },
   {
-    id: 3, nombre: 'Contenedores y Automatización', habilidades: [
+    id: 3, nombre: 'Contenedores y automatización', habilidades: [
       { id: 1, nombre: 'Docker', nivel: 'Intermedio', icono: iconDocker },
       { id: 2, nombre: 'Kubernetes', nivel: 'Fundamentos', icono: iconK8s },
       { id: 3, nombre: 'Bash scripting', nivel: 'Intermedio', icono: iconBash },
@@ -67,14 +67,14 @@ const habilidades = ref([
     ],
   },
   {
-    id: 4, nombre: 'IaC, CI/CD y Control de versiones', habilidades: [
+    id: 4, nombre: 'IaC, CI/CD y control de versiones', habilidades: [
       { id: 1, nombre: 'Git', nivel: 'Intermedio', icono: iconGit },
       { id: 2, nombre: 'GitHub Actions', nivel: 'En formación', icono: null },
       { id: 3, nombre: 'Terraform', nivel: 'En formación', icono: iconTerraform },
     ],
   },
   {
-    id: 5, nombre: 'Lenguajes y Datos', habilidades: [
+    id: 5, nombre: 'Lenguajes y datos', habilidades: [
       { id: 1, nombre: 'Python', nivel: 'Intermedio', icono: iconPython },
       { id: 2, nombre: 'SQL', nivel: 'Intermedio', icono: iconSql },
       { id: 3, nombre: 'JavaScript', nivel: 'Básico-intermedio', icono: iconJs },

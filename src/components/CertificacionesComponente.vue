@@ -6,7 +6,7 @@ import { ref } from 'vue';
 const grupos = ref([
   {
     id: 1,
-    nombre: 'Cloud e Infraestructura',
+    nombre: 'Cloud e infraestructura',
     items: [
       { id: 1, nombre: 'Microsoft Azure Fundamentals – Curso preparatorio AZ-900', emisor: 'EducacionIT', anio: '2023', link: '/certificados/azure-fundamentals-az900-educacionit.pdf' },
       { id: 2, nombre: 'Google Cloud Fundamentals: Core Infrastructure', emisor: 'Coursera / Google Cloud', anio: '2021', link: 'https://www.coursera.org/account/accomplishments/verify/4SJ6HG7YFGNJ' },
@@ -17,7 +17,7 @@ const grupos = ref([
   },
   {
     id: 2,
-    nombre: 'Contenedores y Orquestación',
+    nombre: 'Contenedores y orquestación',
     items: [
       { id: 1, nombre: 'Docker and Kubernetes Fundamentals', emisor: 'Kubernetes Academy Online', anio: '2022', link: '/certificados/docker-kubernetes-fundamentals-kubernetes-academy.pdf' },
       { id: 2, nombre: 'Architecting with Google Kubernetes Engine: Foundations', emisor: 'Coursera / Google Cloud', anio: '2022', link: 'https://www.coursera.org/account/accomplishments/verify/R4WSABEMSH2Z' },
@@ -33,7 +33,7 @@ const grupos = ref([
   },
   {
     id: 4,
-    nombre: 'Datos y Metodologías',
+    nombre: 'Datos y metodologías',
     items: [
       { id: 1, nombre: 'Taller de Data Analysis (Python, Seaborn)', emisor: 'Desafío Latam', anio: '2023', link: 'https://cursos.desafiolatam.com/certificates/iikocd8qw7' },
       { id: 2, nombre: 'Scrum Foundation Professional Certificate (SFPC)', emisor: 'CertiProf', anio: '2022', link: 'https://www.credly.com/badges/79714471' },
