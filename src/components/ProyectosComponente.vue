@@ -36,16 +36,6 @@ const misProyectos = ref([
     estado: 'publicado',
   },
   {
-    id: 5,
-    categoria: 'Desarrollo',
-    titulo: 'Este portafolio (2024 – 2026)',
-    descripcion: 'Portafolio en Vue 3 + Vite desplegado en Vercel. Mantenido al día: actualización a Vite 8, migración a ESLint 10 (flat config) y saneamiento de dependencias (0 vulnerabilidades).',
-    stack: 'Vue 3 · Vite · Vercel',
-    projectoLink: 'https://portafolio-web-aron-rojas.vercel.app',
-    githubLink: 'https://github.com/eironm3n/PortafolioWeb-AronRojas',
-    estado: 'publicado',
-  },
-  {
     id: 1,
     categoria: 'Desarrollo',
     titulo: 'E-commerce Fullstack — Proyecto Integrador (2025)',

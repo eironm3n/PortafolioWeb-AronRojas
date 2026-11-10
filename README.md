@@ -1,6 +1,6 @@
 # Portafolio — Arón Rojas
 
-Especialista en Soporte de Aplicaciones · Cloud (AWS/Azure) · Automatización · Geociencia / Oil & Gas
+Analista de Infraestructura · AWS · Azure · Docker · Terraform · CI/CD
 
 🌐 **https://portafolio-web-aron-rojas.vercel.app**
 
