@@ -14,7 +14,7 @@ const title = 'Arón Rojas';
 const descripcion = 'Analista de Infraestructura';
 const especialidades = 'AWS · Azure · Docker · Terraform · CI/CD';
 const residencia = 'Mendoza, Argentina · Trabajo remoto';
-const presentacion = 'Cinco años en infraestructura y soporte de entornos críticos de cómputo intensivo del sector energético (YPF y PeCOM): instancias AWS EC2 con Windows Server y GPU, migración on-premise a Azure, PowerShell y automatización con Python e IA. En proyectos propios, Docker, CI/CD con GitHub Actions y Terraform. Empecé como Trainee y hoy soy referente L2. Técnico Universitario en Programación (UTN).';
+const presentacion = 'Más de 5 años en infraestructura y soporte de entornos críticos de cómputo intensivo del sector energético (YPF y PeCOM): instancias AWS EC2 con Windows Server y GPU, migración on-premise a Azure, PowerShell y automatización con Python e IA. En proyectos propios, Docker, CI/CD con GitHub Actions y Terraform. Empecé como Trainee y hoy soy referente L2. Técnico Universitario en Programación (UTN).';
 const redesSociales = [
   { id: 1, name: 'LinkedIn', src: linkedin, url: 'https://www.linkedin.com/in/aron-rojas/', externo: true },
   { id: 3, name: 'GitHub', src: github, url: 'https://github.com/eironm3n', externo: true },
